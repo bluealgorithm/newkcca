@@ -105,8 +105,43 @@ const Index = () => {
 						fostering valuable connections for future collaborations
 						and opportunities. Building a supportive network of
 						peers and mentors can enhance their learning journey and
-						provide a foundation for future endeavors. Conferenc
+						provide a foundation for future endeavors.
 					</p>
+					<div className=''>
+						<h3 className='font-[600] font-montserrat text-[24px] leading-8 mb-[16px]'>
+							Conference
+						</h3>
+						<p className='font-[400] font-montserrat text-[16px] leading-6 text-[#3c3838] mb-[20px]'>
+							Inspiring keynote speeches by renowned technology
+							leaders, sharing their success stories and offering
+							insights into emerging trends. Participants will
+							gain valuable knowledge and inspiration from
+							industry experts.
+						</p>
+						<p className='font-[400] font-montserrat text-[16px] leading-6 text-[#3c3838] mb-[20px]'>
+							Engaging workshops covering a wide range of
+							technology topics such as coding, robotics,
+							artificial intelligence, cybersecurity, and more.
+							These workshops will equip kids with practical
+							skills that are highly relevant in today's digital
+							age.
+						</p>
+						<p className='font-[400] font-montserrat text-[16px] leading-6 text-[#3c3838] mb-[20px]'>
+							Interactive panel discussions featuring experts from
+							various fields, providing a platform for discussions
+							on the impact of technology in our lives.
+							Participants will gain a broader perspective on the
+							ethical, social, and environmental aspects of
+							technology.
+						</p>
+						<p className='font-[400] font-montserrat text-[16px] leading-6 text-[#3c3838] mb-[20px]'>
+							Q&A sessions to encourage active participation and
+							address the queries of young attendees. Participants
+							will have the opportunity to interact directly with
+							experts and seek guidance on their technological
+							interests.
+						</p>
+					</div>
 				</article>
 			</section>
 		</div>
