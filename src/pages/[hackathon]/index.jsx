@@ -105,7 +105,7 @@ const Index = () => {
 						fostering valuable connections for future collaborations
 						and opportunities. Building a supportive network of
 						peers and mentors can enhance their learning journey and
-						provide a foundation for future endeavors.
+						provide a foundation for future endeavors. Conferenc
 					</p>
 					<div className=''>
 						<h3 className='font-[600] font-montserrat text-[24px] leading-8 mb-[16px]'>
