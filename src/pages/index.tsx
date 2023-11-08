@@ -23,7 +23,7 @@ const Index = () => {
 	return (
 		<>
 			<Nav />
-			<div className="relative bg-[url('/images/kcca2.JPG')] h-[100vh] bg-cover bg-center overflow-hidden">
+			<div className="z-[50] relative bg-[url('/images/kcca2.JPG')] h-[100vh] bg-cover bg-center overflow-hidden">
 				<div
 					className='absolute top-[1px] left-0 right-0 bottom-0 min-h-[100vh] z-[1] bg-black'
 					style={{
@@ -182,14 +182,14 @@ const Index = () => {
 				<aside className='flex-1 flex flex-col justify-center h-full relative mt-[20px] gap-x-[20px]'>
 					<div className='md:max-w-[506px] md:absolute right-0 md:top-[100px]'>
 						<img
-							src='/images/kcca9.JPG'
+							src='/images/front.JPG'
 							className='max-w-full rounded-md'
 							alt=''
 						/>
 					</div>
 					<div className='md:max-w-[506px] md:absolute right-[20px] md:top-[400px]'>
 						<img
-							src='/images/kcca10.jpg'
+							src='/images/front2.jpg'
 							className=' rounded-md '
 							alt=''
 						/>

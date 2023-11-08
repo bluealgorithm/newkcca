@@ -18,25 +18,25 @@ const NotFound = () => {
 	// 	}
 	// };
 
-	useEffect(() => {
-		if (router.asPath === '/returning-student-payment') {
-			console.log(router.asPath);
-			router.push('/returning-student-payment');
-		} else if (router.asPath === '/payment') {
-			console.log(router.asPath);
-			router.push('/payment');
-		} else if (router.asPath === '/registration') {
-			console.log(router.asPath);
-			router.push('/registration');
-		} else {
-			console.log(router.asPath);
-			router.push('/');
-		}
+	// useEffect(() => {
+	// 	if (router.asPath === '/returning-student-payment') {
+	// 		console.log(router.asPath);
+	// 		router.push('/returning-student-payment');
+	// 	} else if (router.asPath === '/payment') {
+	// 		console.log(router.asPath);
+	// 		router.push('/payment');
+	// 	} else if (router.asPath === '/registration') {
+	// 		console.log(router.asPath);
+	// 		router.push('/registration');
+	// 	} else {
+	// 		console.log(router.asPath);
+	// 		router.push('/');
+	// 	}
 
-		//   return () => {
-		//     second
-		//   }
-	}, []);
+	// 	//   return () => {
+	// 	//     second
+	// 	//   }
+	// }, []);
 
 	return (
 		<div className='flex justify-between items-center w-4/5 text-center'>

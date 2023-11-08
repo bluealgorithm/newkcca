@@ -25,6 +25,7 @@
 		"react-dom": "18.2.0",
 		"react-icons": "^4.8.0",
 		"react-paystack": "^4.0.3",
+		"react-select": "^5.7.4",
 		"sweetalert2": "^11.7.3",
 		"sweetalert2-react-content": "^5.0.7",
 		"typescript": "5.0.2"

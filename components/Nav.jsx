@@ -11,6 +11,7 @@ const Nav = () => {
 	const [joinDropDown, setJoinDropDown] = useState(false);
 	const currentPath = useRouter().pathname;
 	const handleMenu = () => {
+		console.log('clicked');
 		if (menu) {
 			setMenu(false);
 		} else {
@@ -107,14 +108,12 @@ const Nav = () => {
 						/>
 					</Link>
 					<span className='text-3xl cursor-pointer mx-3 md:hidden block'>
-						<GrMenu onClick={() => setMenu(!menu)} />
+						<GrMenu onClick={handleMenu} />
 					</span>
 				</div>
 				<ul
 					className={`${
-						menu
-							? 'top-[160px] opacity-100 pb-6 z-10 h-screen'
-							: 'hidden'
+						menu ? 'top-[180px] pb-6 h-screen z-[100]' : 'hidden'
 					} md:justify-between md:flex md:items-center md:static absolute md:bg-transparent bg-white w-full left-0 md:w-auto md:py-0 py-4 md:pl-0 pl-7 text-xl`}
 				>
 					<li className='md:ml-[45px] md:mr-[27px] my-3 md:my-0 hover:text-primary'>
@@ -144,6 +143,12 @@ const Nav = () => {
 						</a>
 					</li>
 					<li className='md:mr-[27px] my-3 md:my-0 hover:text-primary'>
+						{/* <Link
+							className={`font-montserrat font-[500] text-[16px]duration-500 bg-primary p-3 text-black rounded-[5px] border-[2px] border-blue-500 hover:text-white `}
+							href='/email-registration'
+						>
+							Enrol
+						</Link> */}
 						<Link
 							className={`font-montserrat font-[500] text-[16px]duration-500 bg-primary p-3 text-black rounded-[5px] border-[2px] border-blue-500 hover:text-white `}
 							href='/registration'
@@ -151,6 +156,7 @@ const Nav = () => {
 							Enrol
 						</Link>
 					</li>
+
 					<li className='md:mr-[27px] mt-[35px] md:mt-0 my-3 md:my-0 hover:text-primary'>
 						<Link
 							className={`font-montserrat font-[500] text-[16px]duration-500 bg-primary p-3 text-black rounded-[5px] border-[2px] border-blue-500 hover:text-white `}
