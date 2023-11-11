@@ -187,7 +187,7 @@ const Index = () => {
 							alt=''
 						/>
 					</div>
-					<div className='md:max-w-[506px] md:absolute right-[20px] md:top-[400px]'>
+					<div className='md:max-w-[506px] md:absolute right-[0px] md:top-[500px]'>
 						<img
 							src='/images/front2.jpg'
 							className=' rounded-md '
@@ -293,7 +293,7 @@ const Index = () => {
 					</div>
 				</article>
 				<aside className='flex-1'>
-					<div className='md:max-w-[506px]'>
+					<div className='md:max-w-[506px] md:ml-40'>
 						<img
 							src='/images/kcca7.JPG'
 							className='max-w-full rounded-md'

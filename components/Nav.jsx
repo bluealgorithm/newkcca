@@ -11,7 +11,7 @@ const Nav = () => {
 	const [joinDropDown, setJoinDropDown] = useState(false);
 	const currentPath = useRouter().pathname;
 	const handleMenu = () => {
-		console.log('clicked');
+		// console.log('clicked');
 		if (menu) {
 			setMenu(false);
 		} else {
@@ -150,7 +150,7 @@ const Nav = () => {
 							Enrol
 						</Link> */}
 						<Link
-							className={`font-montserrat font-[500] text-[16px]duration-500 bg-primary p-3 text-black rounded-[5px] border-[2px] border-blue-500 hover:text-white `}
+							className={`font-montserrat font-[500]  text-[16px] outline-none  duration-500 bg-primary  p-3 text-black rounded-[5px] border-[2px] border-blue-500 hover:text-white `}
 							href='/registration'
 						>
 							Enrol
