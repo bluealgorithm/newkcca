@@ -38,7 +38,7 @@ const Index = () => {
 					<div className=''>
 						<Link
 							href='/registration'
-							className='font-[600] text-[16px] font-montserrat text-white bg-primary p-4 w-full md:w-[428px] mt-[40px] mb-[16px] rounded-[4px] block text-center'
+							className='font-[600] text-[16px] font-montserrat text-white bg-primary hover:bg-transparent border-2 hover:border-2 border-[#20C997] p-4 w-full md:w-[428px] mt-[40px] mb-[16px] rounded-[4px] block text-center duration-500 '
 						>
 							REGISTER NOW
 						</Link>

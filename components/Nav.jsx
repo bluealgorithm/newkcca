@@ -150,7 +150,7 @@ const Nav = () => {
 							Enrol
 						</Link> */}
 						<Link
-							className={`font-montserrat font-[500]  text-[16px] outline-none  duration-500 bg-primary  p-3 text-black rounded-[5px] border-[2px] border-blue-500 hover:text-white `}
+							className={`font-montserrat font-[500]  text-[16px] outline-none  duration-500 bg-primary hover:bg-green-800 p-3 text-white rounded-[5px] border-[2px] border-none hover:text-white `}
 							href='/registration'
 						>
 							Enrol
@@ -159,7 +159,7 @@ const Nav = () => {
 
 					<li className='md:mr-[27px] mt-[35px] md:mt-0 my-3 md:my-0 hover:text-primary'>
 						<Link
-							className={`font-montserrat font-[500] text-[16px]duration-500 bg-primary p-3 text-black rounded-[5px] border-[2px] border-blue-500 hover:text-white `}
+							className={`font-montserrat font-[500] text-[16px]duration-500 bg-primary p-3 hover:bg-green-800  text-white rounded-[5px] border-[2px] border-none hover:text-white `}
 							href='/hackathon'
 						>
 							Hackathon

@@ -198,16 +198,16 @@ const Registration = () => {
 		createInfo();
 	};
 
-	useEffect(() => {
-		const timer = setTimeout(() => {
-			alert(
-				'Kindly use correct email address because you will have to confirm it before your registration can be validated'
-			);
-		}, 3000);
-		return () => {
-			clearTimeout(timer);
-		};
-	}, []);
+	// useEffect(() => {
+	// 	const timer = setTimeout(() => {
+	// 		alert(
+	// 			'Kindly use correct email address because you will have to confirm it before your registration can be validated'
+	// 		);
+	// 	}, 3000);
+	// 	return () => {
+	// 		clearTimeout(timer);
+	// 	};
+	// }, []);
 
 	return (
 		<>
@@ -217,7 +217,7 @@ const Registration = () => {
 					<h3 className='font-[500] font-montserrat text-[24px] leading-[32px] text-black text-center'>
 						Registration Form
 					</h3>
-					<p className='font-[400] font-montserrat text-[16px] leading-[24px] text-[#a2a3a3] text-center'>
+					<p className='font-[400] font-montserrat text-[18px] leading-[24px] text-[#a2a3a3] text-center'>
 						Fill out the form to register for the training.
 					</p>
 					<h3 className='font-[500] font-montserrat text-[24px] leading-[32px] text-black text-left'>
@@ -227,7 +227,7 @@ const Registration = () => {
 						<div className='flex-1 mb-[20px] md:mb-0'>
 							<label
 								htmlFor='fname'
-								className='font-[400] font-montserrat text-[16px] leading-[24px] block'
+								className='font-[400] font-montserrat text-[20px] leading-[24px] block'
 							>
 								First name
 							</label>
@@ -237,7 +237,7 @@ const Registration = () => {
 								value={state.firstName}
 								name='firstName'
 								type='text'
-								className='font-[400] border-2 border-green-500 outline-green-500 text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px]  mt-[8px] p-[16px]'
+								className='font-[400] border-2 border-[#20C997] outline-[#20C997] text-[18px] font-montserrat text-[#a2a3a3] w-full h-[56px]  mt-[8px] p-[16px]'
 								style={{
 									background: '#FFFFFF',
 									boxShadow:
@@ -251,7 +251,7 @@ const Registration = () => {
 						<div className='flex-1 mb-[20px] md:mb-0'>
 							<label
 								htmlFor='lname'
-								className='font-[400] font-montserrat text-[16px] leading-[24px] block'
+								className='font-[400] font-montserrat text-[20px] leading-[24px] block'
 							>
 								Last name
 							</label>
@@ -261,7 +261,7 @@ const Registration = () => {
 								value={state.lastName}
 								name='lastName'
 								type='text'
-								className='font-[400] border-2 border-green-500 outline-green-500 text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] mt-[8px] p-[16px]'
+								className='font-[400] border-2 border-[#20C997] outline-[#20C997] text-[18px] font-montserrat text-[#a2a3a3] w-full h-[56px] mt-[8px] p-[16px]'
 								style={{
 									background: '#FFFFFF',
 									boxShadow:
@@ -277,7 +277,7 @@ const Registration = () => {
 						<div className='flex-1 mb-[20px] md:mb-0'>
 							<label
 								htmlFor='city'
-								className='font-[400] font-montserrat text-[16px] leading-[24px] block'
+								className='font-[400] font-montserrat text-[20px] leading-[24px] block'
 							>
 								City
 							</label>
@@ -287,7 +287,7 @@ const Registration = () => {
 								value={state.city}
 								name='city'
 								type='text'
-								className='font-[400] border-2 border-green-500 outline-green-500 text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px]  mt-[8px] p-[16px]'
+								className='font-[400] border-2 border-[#20C997] outline-[#20C997] text-[18px] font-montserrat text-[#a2a3a3] w-full h-[56px]  mt-[8px] p-[16px]'
 								style={{
 									background: '#FFFFFF',
 									boxShadow:
@@ -301,7 +301,7 @@ const Registration = () => {
 						<div className='flex-1 mb-[20px] md:mb-0'>
 							<label
 								htmlFor='address'
-								className='font-[400] font-montserrat text-[16px] leading-[24px] block'
+								className='font-[400] font-montserrat text-[20px] leading-[24px] block'
 							>
 								Address
 							</label>
@@ -311,7 +311,7 @@ const Registration = () => {
 								value={state.address}
 								type='text'
 								name='address'
-								className='font-[400] border-2 border-green-500 outline-green-500 text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] mt-[8px] p-[16px]'
+								className='font-[400] border-2 border-[#20C997] outline-[#20C997] text-[18px] font-montserrat text-[#a2a3a3] w-full h-[56px] mt-[8px] p-[16px]'
 								style={{
 									background: '#FFFFFF',
 									boxShadow:
@@ -327,7 +327,7 @@ const Registration = () => {
 						<div className='flex-1 mb-[20px] md:mb-0'>
 							<label
 								htmlFor='country'
-								className='font-[400] font-montserrat text-[16px] leading-[24px] block'
+								className='font-[400] font-montserrat text-[20px] leading-[24px] block'
 							>
 								Country
 							</label>
@@ -359,7 +359,7 @@ const Registration = () => {
 								value={state.country}
 								type='text'
 								name='country'
-								className='font-[400] border-2 border-green-500 outline-green-500 text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px]  mt-[8px] p-[16px]'
+								className='font-[400] border-2 border-[#20C997] outline-[#20C997] text-[18px] font-montserrat text-[#a2a3a3] w-full h-[56px]  mt-[8px] p-[16px]'
 								style={{
 									background: '#FFFFFF',
 									boxShadow:
@@ -385,7 +385,7 @@ const Registration = () => {
 						<div className='flex-1 mb-[20px] md:mb-0'>
 							<label
 								htmlFor='state'
-								className='font-[400] font-montserrat text-[16px] leading-[24px] block'
+								className='font-[400] font-montserrat text-[20px] leading-[24px] block'
 							>
 								State
 							</label>
@@ -394,7 +394,7 @@ const Registration = () => {
 									value={state.state}
 									name='state'
 									onChange={handleChange}
-									className='font-[400] border-2 border-green-500 outline-green-500 text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] mt-[8px] p-[16px]'
+									className='font-[400] border-2 border-[#20C997] outline-[#20C997] text-[18px] font-montserrat text-[#a2a3a3] w-full h-[56px] mt-[8px] p-[16px]'
 									style={{
 										background: '#FFFFFF',
 										boxShadow:
@@ -421,7 +421,7 @@ const Registration = () => {
 						<div className='flex-1 mb-[20px] md:mb-0'>
 							<label
 								htmlFor='cohort'
-								className='font-[400] font-montserrat text-[16px] leading-[24px] block'
+								className='font-[400] font-montserrat text-[20px] leading-[24px] block'
 							>
 								Cohort
 							</label>
@@ -431,7 +431,7 @@ const Registration = () => {
 								id='cohort'
 								onChange={handleChange}
 								value={state.cohort}
-								className='font-[400] border-2 border-green-500 outline-green-500 text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] mt-[8px] p-[16px] bg-white'
+								className='font-[400] border-2 border-[#20C997] outline-[#20C997] text-[18px] font-montserrat text-[#a2a3a3] w-full h-[56px] mt-[8px] p-[16px] bg-white'
 								style={{
 									background: '#FFFFFF',
 									boxShadow:
@@ -450,7 +450,7 @@ const Registration = () => {
 						<div className='flex-1 mb-[20px] md:mb-0'>
 							<label
 								htmlFor='gender'
-								className='font-[400] font-montserrat text-[16px] leading-[24px] block'
+								className='font-[400] font-montserrat text-[20px] leading-[24px] block'
 							>
 								Gender
 							</label>
@@ -460,7 +460,7 @@ const Registration = () => {
 								id='gender'
 								onChange={handleChange}
 								value={state.gender}
-								className='font-[400] border-2 border-green-500 outline-green-500 text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] mt-[8px] p-[16px] bg-white'
+								className='font-[400] border-2 border-[#20C997] outline-[#20C997] text-[18px] font-montserrat text-[#a2a3a3] w-full h-[56px] mt-[8px] p-[16px] bg-white'
 								style={{
 									background: '#FFFFFF',
 									boxShadow:
@@ -478,7 +478,7 @@ const Registration = () => {
 						<div className='flex-1 mb-[20px] md:mb-0'>
 							<label
 								htmlFor='age'
-								className='font-[400] font-montserrat text-[16px] leading-[24px] block'
+								className='font-[400] font-montserrat text-[20px] leading-[24px] block'
 							>
 								Age
 							</label>
@@ -488,7 +488,7 @@ const Registration = () => {
 								value={state.age}
 								type='number'
 								name='age'
-								className='font-[400]  border-2 border-green-500 outline-green-500 text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px]  mt-[8px] p-[16px]'
+								className='font-[400]  border-2 border-[#20C997] outline-[#20C997] text-[18px] font-montserrat text-[#a2a3a3] w-full h-[56px]  mt-[8px] p-[16px]'
 								style={{
 									background: '#FFFFFF',
 									boxShadow:
@@ -508,7 +508,7 @@ const Registration = () => {
 						<div className='flex-1 mb-[20px] md:mb-0'>
 							<label
 								htmlFor='isStudent'
-								className='font-[400] font-montserrat text-[16px] leading-[24px] block'
+								className='font-[400] font-montserrat text-[20px] leading-[24px] block'
 							>
 								Are you A Student
 							</label>
@@ -518,7 +518,7 @@ const Registration = () => {
 								id='isStudent'
 								onChange={handleChange}
 								value={state.isStudent}
-								className='font-[400] border-2 border-green-500 outline-green-500 text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] mt-[8px] p-[16px] bg-white'
+								className='font-[400] border-2 border-[#20C997] outline-[#20C997] text-[18px] font-montserrat text-[#a2a3a3] w-full h-[56px] mt-[8px] p-[16px] bg-white'
 								style={{
 									background: '#FFFFFF',
 									boxShadow:
@@ -534,7 +534,7 @@ const Registration = () => {
 						<div className='flex-1 mb-[20px] md:mb-0'>
 							<label
 								htmlFor='boarding'
-								className='font-[400] font-montserrat text-[16px] leading-[24px] block'
+								className='font-[400] font-montserrat text-[20px] leading-[24px] block'
 							>
 								Day or Boarding
 							</label>
@@ -544,7 +544,7 @@ const Registration = () => {
 								id='boarding'
 								onChange={handleChange}
 								value={state.isBoarding}
-								className='font-[400] border-2 border-green-500 outline-green-500 text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px]  mt-[8px] p-[16px] bg-white'
+								className='font-[400] border-2 border-[#20C997] outline-[#20C997] text-[18px] font-montserrat text-[#a2a3a3] w-full h-[56px]  mt-[8px] p-[16px] bg-white'
 								style={{
 									background: '#FFFFFF',
 									boxShadow:
@@ -562,7 +562,7 @@ const Registration = () => {
 						<div className='flex-1 mb-[20px] md:mb-0'>
 							<label
 								htmlFor='school_add'
-								className='font-[400] font-montserrat text-[16px] leading-[24px] block'
+								className='font-[400] font-montserrat text-[20px] leading-[24px] block'
 							>
 								School address
 							</label>
@@ -572,7 +572,7 @@ const Registration = () => {
 								value={state.schoolAddress}
 								type='text'
 								name='schoolAddress'
-								className='font-[400] border-2 border-green-500 outline-green-500 text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] mt-[8px] p-[16px]'
+								className='font-[400] border-2 border-[#20C997] outline-[#20C997] text-[18px] font-montserrat text-[#a2a3a3] w-full h-[56px] mt-[8px] p-[16px]'
 								style={{
 									background: '#FFFFFF',
 									boxShadow:
@@ -586,7 +586,7 @@ const Registration = () => {
 						<div className='flex-1 mb-[20px] md:mb-0'>
 							<label
 								htmlFor='school_name'
-								className='font-[400] font-montserrat text-[16px] leading-[24px] block'
+								className='font-[400] font-montserrat text-[20px] leading-[24px] block'
 							>
 								Name of school
 							</label>
@@ -596,7 +596,7 @@ const Registration = () => {
 								value={state.schoolName}
 								name='schoolName'
 								type='text'
-								className='font-[400] border-2 border-green-500 outline-green-500 text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] mt-[8px] p-[16px]'
+								className='font-[400] border-2 border-[#20C997] outline-[#20C997] text-[18px] font-montserrat text-[#a2a3a3] w-full h-[56px] mt-[8px] p-[16px]'
 								style={{
 									background: '#FFFFFF',
 									boxShadow:
@@ -614,7 +614,7 @@ const Registration = () => {
 					<div className='flex-1 mb-[20px] md:mb-0'>
 						<label
 							htmlFor='parentName'
-							className='font-[400] font-montserrat text-[16px] leading-[24px] block'
+							className='font-[400] font-montserrat text-[20px] leading-[24px] block'
 						>
 							Parent name
 						</label>
@@ -624,7 +624,7 @@ const Registration = () => {
 							name='parentName'
 							value={state.parentName}
 							type='text'
-							className='font-[400] border-2 border-green-500 outline-green-500 text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px]  mt-[8px] p-[16px]'
+							className='font-[400] border-2 border-[#20C997] outline-[#20C997] text-[18px] font-montserrat text-[#a2a3a3] w-full h-[56px]  mt-[8px] p-[16px]'
 							style={{
 								background: '#FFFFFF',
 								boxShadow: ' 4px 4px 8px rgba(0, 0, 0, 0.16)',
@@ -638,7 +638,7 @@ const Registration = () => {
 						<div className='flex-1 mb-[20px] md:mb-0'>
 							<label
 								htmlFor='email'
-								className='font-[400] font-montserrat text-[16px] leading-[24px] block'
+								className='font-[400] font-montserrat text-[20px] leading-[24px] block'
 							>
 								Email
 							</label>
@@ -649,7 +649,7 @@ const Registration = () => {
 								name='email'
 								type='email'
 								// onBlur={() => handleAlert()}
-								className='font-[400] border-2 border-green-500 outline-green-500 text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] mt-[8px] p-[16px]'
+								className='font-[400] border-2 border-[#20C997] outline-[#20C997] text-[18px] font-montserrat text-[#a2a3a3] w-full h-[56px] mt-[8px] p-[16px]'
 								style={{
 									background: '#FFFFFF',
 									boxShadow:
@@ -663,7 +663,7 @@ const Registration = () => {
 						<div className='flex-1 mb-[20px] md:mb-0'>
 							<label
 								htmlFor='phone'
-								className='font-[400] font-montserrat text-[16px] leading-[24px] block'
+								className='font-[400] font-montserrat text-[20px] leading-[24px] block'
 							>
 								Phone number
 							</label>
@@ -673,7 +673,7 @@ const Registration = () => {
 								value={state.phoneNumber}
 								name='phoneNumber'
 								type='tel'
-								className='font-[400] border-2 border-green-500 outline-green-500 text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] mt-[8px] p-[16px]'
+								className='font-[400] border-2 border-[#20C997] outline-[#20C997] text-[18px] font-montserrat text-[#a2a3a3] w-full h-[56px] mt-[8px] p-[16px]'
 								style={{
 									background: '#FFFFFF',
 									boxShadow:
@@ -689,7 +689,7 @@ const Registration = () => {
 						<div className='flex-1 mb-[20px] md:mb-0'>
 							<label
 								htmlFor='screening'
-								className='font-[400] font-montserrat text-[16px] leading-[24px] block'
+								className='font-[400] font-montserrat text-[20px] leading-[24px] block'
 							>
 								Screening Mode
 							</label>
@@ -699,7 +699,7 @@ const Registration = () => {
 								id='screening'
 								onChange={handleChange}
 								value={state.screeningMode}
-								className='font-[400] border-2 border-green-500 outline-green-500 text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] mt-[8px] p-[16px] bg-white'
+								className='font-[400] border-2 border-[#20C997] outline-[#20C997] text-[18px] font-montserrat text-[#a2a3a3] w-full h-[56px] mt-[8px] p-[16px] bg-white'
 								style={{
 									background: '#FFFFFF',
 									boxShadow:
@@ -723,12 +723,13 @@ const Registration = () => {
 							value={state.agreement}
 							required
 						/>
-						<label htmlFor='agreement'>
+						<label htmlFor='agreement' 
+						className='text-[18px]'>
 							Read and Accept the{' '}
 							<a
 								href='/kcca_agreement.pdf'
 								download
-								className='text-primary'
+								className='text-primary '
 							>
 								Terms and conditions
 							</a>
@@ -741,7 +742,7 @@ const Registration = () => {
 								!state.agreement && !isFormFilled
 									? 'cursor-not-allowed'
 									: 'cursor-pointer bg-primary'
-							} font-[600] text-[16px] bg-primary hover:bg-white hover:border-2 border-green-500 font-montserrat text-white hover:text-green-500 rounded-[8px] w-full md:max-w-[488px] p-[16px]`}
+							} font-[600] text-[18px] bg-primary border-2 hover:bg-white hover:border-2 border-[#20C997] duration-500 font-montserrat text-white hover:text-[#20C997] rounded-[8px] w-full md:max-w-[488px] p-[16px]`}
 							onClick={handleSubmit}
 							disabled={!isFormFilled && !state.agreement}
 						>

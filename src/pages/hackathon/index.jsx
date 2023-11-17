@@ -20,7 +20,7 @@ const Index = () => {
 					<div className=''>
 						<Link
 							href='/hackathon/register'
-							className='font-[600] text-[16px] font-montserrat text-white bg-primary p-4 w-full md:w-[428px] mt-[40px] mb-[16px] block text-center rounded-md'
+							className='font-[600] text-[16px] font-montserrat text-white duration-500 bg-primary hover:bg-transparent border-2 hover:border-2 border-[#20C997] p-4 w-full md:w-[428px] mt-[40px] mb-[16px] block text-center rounded-md'
 						>
 							REGISTER NOW
 						</Link>
