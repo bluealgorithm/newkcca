@@ -237,7 +237,7 @@ const Registration = () => {
 								value={state.firstName}
 								name='firstName'
 								type='text'
-								className='font-[400] text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] border-none mt-[8px] p-[16px]'
+								className='font-[400] border-2 border-green-500 outline-green-500 text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px]  mt-[8px] p-[16px]'
 								style={{
 									background: '#FFFFFF',
 									boxShadow:
@@ -245,6 +245,7 @@ const Registration = () => {
 									borderRadius: '8px',
 								}}
 								id='fname'
+								placeholder='E.g Mark'
 							/>
 						</div>
 						<div className='flex-1 mb-[20px] md:mb-0'>
@@ -260,7 +261,7 @@ const Registration = () => {
 								value={state.lastName}
 								name='lastName'
 								type='text'
-								className='font-[400] text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] border-none mt-[8px] p-[16px]'
+								className='font-[400] border-2 border-green-500 outline-green-500 text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] mt-[8px] p-[16px]'
 								style={{
 									background: '#FFFFFF',
 									boxShadow:
@@ -268,6 +269,7 @@ const Registration = () => {
 									borderRadius: '8px',
 								}}
 								id='lname'
+								placeholder='E.g Frank'
 							/>
 						</div>
 					</div>
@@ -285,7 +287,7 @@ const Registration = () => {
 								value={state.city}
 								name='city'
 								type='text'
-								className='font-[400] text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] border-none mt-[8px] p-[16px]'
+								className='font-[400] border-2 border-green-500 outline-green-500 text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px]  mt-[8px] p-[16px]'
 								style={{
 									background: '#FFFFFF',
 									boxShadow:
@@ -293,6 +295,7 @@ const Registration = () => {
 									borderRadius: '8px',
 								}}
 								id='city'
+								placeholder='E.g Jos South'
 							/>
 						</div>
 						<div className='flex-1 mb-[20px] md:mb-0'>
@@ -308,7 +311,7 @@ const Registration = () => {
 								value={state.address}
 								type='text'
 								name='address'
-								className='font-[400] text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] border-none mt-[8px] p-[16px]'
+								className='font-[400] border-2 border-green-500 outline-green-500 text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] mt-[8px] p-[16px]'
 								style={{
 									background: '#FFFFFF',
 									boxShadow:
@@ -316,6 +319,7 @@ const Registration = () => {
 									borderRadius: '8px',
 								}}
 								id='address'
+								placeholder='E.g No 11 Yelwa Club'
 							/>
 						</div>
 					</div>
@@ -355,7 +359,7 @@ const Registration = () => {
 								value={state.country}
 								type='text'
 								name='country'
-								className='font-[400] text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] border-none mt-[8px] p-[16px]'
+								className='font-[400] border-2 border-green-500 outline-green-500 text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px]  mt-[8px] p-[16px]'
 								style={{
 									background: '#FFFFFF',
 									boxShadow:
@@ -364,6 +368,7 @@ const Registration = () => {
 								}}
 								id='country'
 								list='countryList'
+								placeholder='E.g Nigeria'
 							/>
 							{/* datalist for Country */}
 							<datalist id='countryList'>
@@ -389,7 +394,7 @@ const Registration = () => {
 									value={state.state}
 									name='state'
 									onChange={handleChange}
-									className='font-[400] text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] border-none mt-[8px] p-[16px]'
+									className='font-[400] border-2 border-green-500 outline-green-500 text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] mt-[8px] p-[16px]'
 									style={{
 										background: '#FFFFFF',
 										boxShadow:
@@ -397,6 +402,7 @@ const Registration = () => {
 										borderRadius: '8px',
 									}}
 									id='country'
+									placeholder='E.g Abuja'
 								>
 									{stateOfResidence?.map((states) => (
 										<option
@@ -425,13 +431,14 @@ const Registration = () => {
 								id='cohort'
 								onChange={handleChange}
 								value={state.cohort}
-								className='font-[400] text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] border-none mt-[8px] p-[16px] bg-white'
+								className='font-[400] border-2 border-green-500 outline-green-500 text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] mt-[8px] p-[16px] bg-white'
 								style={{
 									background: '#FFFFFF',
 									boxShadow:
 										' 4px 4px 8px rgba(0, 0, 0, 0.16)',
 									borderRadius: '8px',
 								}}
+								placeholder='E.g Mark'
 							>
 								<option value=''>-- Select Cohort --</option>
 								<option value='2020'>2020</option>
@@ -453,7 +460,7 @@ const Registration = () => {
 								id='gender'
 								onChange={handleChange}
 								value={state.gender}
-								className='font-[400] text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] border-none mt-[8px] p-[16px] bg-white'
+								className='font-[400] border-2 border-green-500 outline-green-500 text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] mt-[8px] p-[16px] bg-white'
 								style={{
 									background: '#FFFFFF',
 									boxShadow:
@@ -481,7 +488,7 @@ const Registration = () => {
 								value={state.age}
 								type='number'
 								name='age'
-								className='font-[400] text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] border-none mt-[8px] p-[16px]'
+								className='font-[400]  border-2 border-green-500 outline-green-500 text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px]  mt-[8px] p-[16px]'
 								style={{
 									background: '#FFFFFF',
 									boxShadow:
@@ -489,6 +496,7 @@ const Registration = () => {
 									borderRadius: '8px',
 								}}
 								id='age'
+								placeholder='E.g 12 years old'
 							/>
 						</div>
 						<div className='flex-1 mb-[20px] md:mb-0'></div>
@@ -510,7 +518,7 @@ const Registration = () => {
 								id='isStudent'
 								onChange={handleChange}
 								value={state.isStudent}
-								className='font-[400] text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] border-none mt-[8px] p-[16px] bg-white'
+								className='font-[400] border-2 border-green-500 outline-green-500 text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] mt-[8px] p-[16px] bg-white'
 								style={{
 									background: '#FFFFFF',
 									boxShadow:
@@ -536,7 +544,7 @@ const Registration = () => {
 								id='boarding'
 								onChange={handleChange}
 								value={state.isBoarding}
-								className='font-[400] text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] border-none mt-[8px] p-[16px] bg-white'
+								className='font-[400] border-2 border-green-500 outline-green-500 text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px]  mt-[8px] p-[16px] bg-white'
 								style={{
 									background: '#FFFFFF',
 									boxShadow:
@@ -564,7 +572,7 @@ const Registration = () => {
 								value={state.schoolAddress}
 								type='text'
 								name='schoolAddress'
-								className='font-[400] text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] border-none mt-[8px] p-[16px]'
+								className='font-[400] border-2 border-green-500 outline-green-500 text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] mt-[8px] p-[16px]'
 								style={{
 									background: '#FFFFFF',
 									boxShadow:
@@ -572,6 +580,7 @@ const Registration = () => {
 									borderRadius: '8px',
 								}}
 								id='school_add'
+								placeholder='E.g Zarmaganda-Rayfield fwavei road'
 							/>
 						</div>
 						<div className='flex-1 mb-[20px] md:mb-0'>
@@ -587,7 +596,7 @@ const Registration = () => {
 								value={state.schoolName}
 								name='schoolName'
 								type='text'
-								className='font-[400] text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] border-none mt-[8px] p-[16px]'
+								className='font-[400] border-2 border-green-500 outline-green-500 text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] mt-[8px] p-[16px]'
 								style={{
 									background: '#FFFFFF',
 									boxShadow:
@@ -595,6 +604,7 @@ const Registration = () => {
 									borderRadius: '8px',
 								}}
 								id='school_name'
+								placeholder='E.g Peaky Academy School'
 							/>
 						</div>
 					</div>
@@ -606,7 +616,7 @@ const Registration = () => {
 							htmlFor='parentName'
 							className='font-[400] font-montserrat text-[16px] leading-[24px] block'
 						>
-							Parents name
+							Parent name
 						</label>
 						<input
 							required
@@ -614,13 +624,14 @@ const Registration = () => {
 							name='parentName'
 							value={state.parentName}
 							type='text'
-							className='font-[400] text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] border-none mt-[8px] p-[16px]'
+							className='font-[400] border-2 border-green-500 outline-green-500 text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px]  mt-[8px] p-[16px]'
 							style={{
 								background: '#FFFFFF',
 								boxShadow: ' 4px 4px 8px rgba(0, 0, 0, 0.16)',
 								borderRadius: '8px',
 							}}
 							id='parentName'
+							placeholder='E.g Frank Markus'
 						/>
 					</div>
 					<div className='md:flex gap-x-[40px]'>
@@ -638,7 +649,7 @@ const Registration = () => {
 								name='email'
 								type='email'
 								// onBlur={() => handleAlert()}
-								className='font-[400] text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] border-none mt-[8px] p-[16px]'
+								className='font-[400] border-2 border-green-500 outline-green-500 text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] mt-[8px] p-[16px]'
 								style={{
 									background: '#FFFFFF',
 									boxShadow:
@@ -646,6 +657,7 @@ const Registration = () => {
 									borderRadius: '8px',
 								}}
 								id='email'
+								placeholder='E.g markus@gmail.com'
 							/>
 						</div>
 						<div className='flex-1 mb-[20px] md:mb-0'>
@@ -661,7 +673,7 @@ const Registration = () => {
 								value={state.phoneNumber}
 								name='phoneNumber'
 								type='tel'
-								className='font-[400] text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] border-none mt-[8px] p-[16px]'
+								className='font-[400] border-2 border-green-500 outline-green-500 text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] mt-[8px] p-[16px]'
 								style={{
 									background: '#FFFFFF',
 									boxShadow:
@@ -669,6 +681,7 @@ const Registration = () => {
 									borderRadius: '8px',
 								}}
 								id='phone'
+								placeholder='E.g +2347057849098 '
 							/>
 						</div>
 					</div>
@@ -686,7 +699,7 @@ const Registration = () => {
 								id='screening'
 								onChange={handleChange}
 								value={state.screeningMode}
-								className='font-[400] text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] border-none mt-[8px] p-[16px] bg-white'
+								className='font-[400] border-2 border-green-500 outline-green-500 text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] mt-[8px] p-[16px] bg-white'
 								style={{
 									background: '#FFFFFF',
 									boxShadow:
@@ -721,14 +734,14 @@ const Registration = () => {
 							</a>
 						</label>
 					</div>
-					<div className='flex-1 mb-[20px] md:mb-0'>
+					<div className='flex justify-center  mb-[20px] md:mb-0'>
 						<button
 							type='submit'
 							className={`${
 								!state.agreement && !isFormFilled
 									? 'cursor-not-allowed'
 									: 'cursor-pointer bg-primary'
-							} font-[600] text-[16px] bg-primary hover:bg-primaryPurple font-montserrat text-white rounded-[8px] w-full md:max-w-[488px] p-[16px]`}
+							} font-[600] text-[16px] bg-primary hover:bg-white hover:border-2 border-green-500 font-montserrat text-white hover:text-green-500 rounded-[8px] w-full md:max-w-[488px] p-[16px]`}
 							onClick={handleSubmit}
 							disabled={!isFormFilled && !state.agreement}
 						>
