@@ -9,6 +9,9 @@ import { useRouter } from 'next/router';
 import Select from 'react-select';
 const API_URL = 'https://restfulcountries.com/api/v1/countries';
 const BEARER_TOKEN = process.env.NEXT_PUBLIC_COUNTRY_FETCH_TOKEN;
+import AOS from 'aos'
+import "aos/dist/aos.css";
+
 
 // import kcca_agreement from '../kcca_agreement.pdf';
 const Registration = () => {
@@ -36,6 +39,15 @@ const Registration = () => {
 	});
 	const [countries, setCountries] = useState([]);
 	const [stateOfResidence, setStateOfResidence] = useState([]);
+
+	useEffect(() => {
+		AOS.init({
+		//   disable: "phone",
+		  duration: 700,
+		  easing: "ease-out-cubic",
+		});
+	  }, []);
+	
 	useEffect(() => {
 		// Function to fetch list of countries
 		const fetchData = async () => {
@@ -212,19 +224,28 @@ const Registration = () => {
 	return (
 		<>
 			<Nav />
-			<div className=' bg-white pb-[40px] md:pb-[160px] text-black'>
+			<div 
+			 className=' bg-white pb-[40px] md:pb-[160px] text-black'>
 				<section className='w-[90%] md:w-[1104px] mt-[30px] md:mt-[72px] p-[10px] md:p-[40px] mx-auto flex flex-col gap-[15px] md:gap-[40px] justify-center border border-primary pb-4'>
-					<h3 className='font-[500] font-montserrat text-[24px] leading-[32px] text-black text-center'>
+					<h3 
+					data-aos="fade-up" data-aos-duration="900"
+					className='font-[500] font-montserrat text-[24px] leading-[32px] text-black text-center'>
 						Registration Form
 					</h3>
-					<p className='font-[400] font-montserrat text-[18px] leading-[24px] text-[#a2a3a3] text-center'>
+					<p 
+					data-aos="fade-up" data-aos-duration="900"
+					className='font-[400] font-montserrat text-[18px] leading-[24px] text-[#a2a3a3] text-center'>
 						Fill out the form to register for the training.
 					</p>
-					<h3 className='font-[500] font-montserrat text-[24px] leading-[32px] text-black text-left'>
+					<h3 
+					data-aos="fade-up" data-aos-duration="900"
+					className='font-[500] font-montserrat text-[24px] leading-[32px] text-black text-left'>
 						Personal Information:
 					</h3>
 					<div className='md:flex gap-x-[40px]'>
-						<div className='flex-1 mb-[20px] md:mb-0'>
+						<div 
+						data-aos="fade-up" data-aos-duration="900"
+						className='flex-1 mb-[20px] md:mb-0'>
 							<label
 								htmlFor='fname'
 								className='font-[400] font-montserrat text-[20px] leading-[24px] block'
@@ -248,7 +269,9 @@ const Registration = () => {
 								placeholder='E.g Mark'
 							/>
 						</div>
-						<div className='flex-1 mb-[20px] md:mb-0'>
+						<div 
+						data-aos="fade-up" data-aos-duration="900"
+						className='flex-1 mb-[20px] md:mb-0'>
 							<label
 								htmlFor='lname'
 								className='font-[400] font-montserrat text-[20px] leading-[24px] block'
@@ -273,7 +296,9 @@ const Registration = () => {
 							/>
 						</div>
 					</div>
-					<div className='md:flex md:gap-x-[40px]'>
+					<div 
+					data-aos="fade-up" data-aos-duration="900"
+					className='md:flex md:gap-x-[40px]'>
 						<div className='flex-1 mb-[20px] md:mb-0'>
 							<label
 								htmlFor='city'
@@ -298,7 +323,9 @@ const Registration = () => {
 								placeholder='E.g Jos South'
 							/>
 						</div>
-						<div className='flex-1 mb-[20px] md:mb-0'>
+						<div 
+						data-aos="fade-up" data-aos-duration="900"
+						className='flex-1 mb-[20px] md:mb-0'>
 							<label
 								htmlFor='address'
 								className='font-[400] font-montserrat text-[20px] leading-[24px] block'
@@ -323,7 +350,9 @@ const Registration = () => {
 							/>
 						</div>
 					</div>
-					<div className='md:flex md:gap-x-[40px]'>
+					<div 
+					data-aos="fade-up" data-aos-duration="900"
+					className='md:flex md:gap-x-[40px]'>
 						<div className='flex-1 mb-[20px] md:mb-0'>
 							<label
 								htmlFor='country'
@@ -382,7 +411,9 @@ const Registration = () => {
 								))}
 							</datalist>
 						</div>
-						<div className='flex-1 mb-[20px] md:mb-0'>
+						<div 
+						data-aos="fade-up" data-aos-duration="900"
+						className='flex-1 mb-[20px] md:mb-0'>
 							<label
 								htmlFor='state'
 								className='font-[400] font-montserrat text-[20px] leading-[24px] block'
@@ -418,7 +449,9 @@ const Registration = () => {
 					</div>
 
 					<div className='md:flex gap-x-[40px]'>
-						<div className='flex-1 mb-[20px] md:mb-0'>
+						<div 
+						data-aos="fade-up" data-aos-duration="900"
+						className='flex-1 mb-[20px] md:mb-0'>
 							<label
 								htmlFor='cohort'
 								className='font-[400] font-montserrat text-[20px] leading-[24px] block'
@@ -447,7 +480,9 @@ const Registration = () => {
 								<option value='2023'>2023</option>
 							</select>
 						</div>
-						<div className='flex-1 mb-[20px] md:mb-0'>
+						<div 
+						data-aos="fade-up" data-aos-duration="900"
+						className='flex-1 mb-[20px] md:mb-0'>
 							<label
 								htmlFor='gender'
 								className='font-[400] font-montserrat text-[20px] leading-[24px] block'
@@ -475,7 +510,9 @@ const Registration = () => {
 						</div>
 					</div>
 					<div className='md:flex gap-x-[40px]'>
-						<div className='flex-1 mb-[20px] md:mb-0'>
+						<div 
+						data-aos="fade-up" data-aos-duration="900"
+						className='flex-1 mb-[20px] md:mb-0'>
 							<label
 								htmlFor='age'
 								className='font-[400] font-montserrat text-[20px] leading-[24px] block'
@@ -501,11 +538,17 @@ const Registration = () => {
 						</div>
 						<div className='flex-1 mb-[20px] md:mb-0'></div>
 					</div>
-					<h3 className='font-[500] font-montserrat text-[24px] leading-[32px] text-black text-left'>
+					<h3 
+					data-aos="fade-up" data-aos-duration="900"
+					className='font-[500] font-montserrat text-[24px] leading-[32px] text-black text-left'>
 						School Information:
 					</h3>
-					<div className='md:flex md:gap-x-[40px]'>
-						<div className='flex-1 mb-[20px] md:mb-0'>
+					<div 
+					
+					className='md:flex md:gap-x-[40px]'>
+						<div 
+						data-aos="fade-up" data-aos-duration="900"
+						className='flex-1 mb-[20px] md:mb-0'>
 							<label
 								htmlFor='isStudent'
 								className='font-[400] font-montserrat text-[20px] leading-[24px] block'
@@ -531,7 +574,9 @@ const Registration = () => {
 								<option value='no'>No</option>
 							</select>
 						</div>
-						<div className='flex-1 mb-[20px] md:mb-0'>
+						<div 
+						data-aos="fade-up" data-aos-duration="900"
+						className='flex-1 mb-[20px] md:mb-0'>
 							<label
 								htmlFor='boarding'
 								className='font-[400] font-montserrat text-[20px] leading-[24px] block'
@@ -559,7 +604,9 @@ const Registration = () => {
 						</div>
 					</div>
 					<div className='md:flex gap-x-[40px]'>
-						<div className='flex-1 mb-[20px] md:mb-0'>
+						<div 
+						data-aos="fade-up" data-aos-duration="900"
+						className='flex-1 mb-[20px] md:mb-0'>
 							<label
 								htmlFor='school_add'
 								className='font-[400] font-montserrat text-[20px] leading-[24px] block'
@@ -583,7 +630,9 @@ const Registration = () => {
 								placeholder='E.g Zarmaganda-Rayfield fwavei road'
 							/>
 						</div>
-						<div className='flex-1 mb-[20px] md:mb-0'>
+						<div 
+						data-aos="fade-up" data-aos-duration="900"
+						className='flex-1 mb-[20px] md:mb-0'>
 							<label
 								htmlFor='school_name'
 								className='font-[400] font-montserrat text-[20px] leading-[24px] block'
@@ -608,10 +657,14 @@ const Registration = () => {
 							/>
 						</div>
 					</div>
-					<h3 className='font-[500] font-montserrat text-[24px] leading-[32px] text-black text-left'>
+					<h3 
+					data-aos="fade-up" data-aos-duration="900"
+					className='font-[500] font-montserrat text-[24px] leading-[32px] text-black text-left'>
 						Parents Information:
 					</h3>
-					<div className='flex-1 mb-[20px] md:mb-0'>
+					<div 
+					data-aos="fade-up" data-aos-duration="900"
+					className='flex-1 mb-[20px] md:mb-0'>
 						<label
 							htmlFor='parentName'
 							className='font-[400] font-montserrat text-[20px] leading-[24px] block'
@@ -635,7 +688,9 @@ const Registration = () => {
 						/>
 					</div>
 					<div className='md:flex gap-x-[40px]'>
-						<div className='flex-1 mb-[20px] md:mb-0'>
+						<div 
+						data-aos="fade-up" data-aos-duration="900"
+						className='flex-1 mb-[20px] md:mb-0'>
 							<label
 								htmlFor='email'
 								className='font-[400] font-montserrat text-[20px] leading-[24px] block'
@@ -660,7 +715,9 @@ const Registration = () => {
 								placeholder='E.g markus@gmail.com'
 							/>
 						</div>
-						<div className='flex-1 mb-[20px] md:mb-0'>
+						<div 
+						data-aos="fade-up" data-aos-duration="900"
+						className='flex-1 mb-[20px] md:mb-0'>
 							<label
 								htmlFor='phone'
 								className='font-[400] font-montserrat text-[20px] leading-[24px] block'
@@ -686,7 +743,9 @@ const Registration = () => {
 						</div>
 					</div>
 					{showMode && (
-						<div className='flex-1 mb-[20px] md:mb-0'>
+						<div 
+						data-aos="fade-up" data-aos-duration="900"
+						className='flex-1 mb-[20px] md:mb-0'>
 							<label
 								htmlFor='screening'
 								className='font-[400] font-montserrat text-[20px] leading-[24px] block'
@@ -713,7 +772,9 @@ const Registration = () => {
 							</select>
 						</div>
 					)}
-					<div className='flex-1 mb-[20px] md:mb-0'>
+					<div 
+					data-aos="fade-up" data-aos-duration="900"
+					className='flex-1 mb-[20px] md:mb-0'>
 						<input
 							className='mr-[20px]'
 							type='checkbox'
@@ -735,7 +796,9 @@ const Registration = () => {
 							</a>
 						</label>
 					</div>
-					<div className='flex justify-center  mb-[20px] md:mb-0'>
+					<div 
+					data-aos="fade-up" data-aos-duration="900"
+					className='flex justify-center  mb-[20px] md:mb-0'>
 						<button
 							type='submit'
 							className={`${

@@ -1,8 +1,23 @@
+"use client"
+import { useEffect } from 'react';
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
 import WhatsappButton from '../../components/WhatsappButton';
 import Link from 'next/link';
+import AOS from 'aos'
+import "aos/dist/aos.css";
+
+
 const Index = () => {
+
+useEffect(() => {
+    AOS.init({
+    //   disable: "phone",
+      duration: 700,
+      easing: "ease-out-cubic",
+    });
+  }, []);
+
 	const Timetable = ({ duration, title, description }: any) => {
 		return (
 			<div className='flex flex-col md:flex-row items-start'>
@@ -23,7 +38,7 @@ const Index = () => {
 	return (
 		<>
 			<Nav />
-			<div className="z-[50] relative bg-[url('/images/kcca2.JPG')] h-[100vh] bg-cover bg-center overflow-hidden">
+			<div  className="z-[50] relative bg-[url('/images/kcca2.JPG')] h-[100vh] bg-cover bg-center overflow-hidden">
 				<div
 					className='absolute top-[1px] left-0 right-0 bottom-0 min-h-[100vh] z-[1] bg-black'
 					style={{
@@ -31,8 +46,8 @@ const Index = () => {
 						// "linear-gradient(84.59deg, rgba(0, 0, 0, 0.58) 17.84%, rgba(0, 0, 0, 0.17) 52.14%, rgba(0, 0, 0, 0.65) 80.9%)",
 					}}
 				/>
-				<div className='relative z-[100] flex flex-col justify-center items-center text-white h-full px-[20px]'>
-					<h3 className='font-[600] font-montserrat text-[30px] md:text-[64px] leading-[40px] md:leading-[80px] capitalize md:w-[525px] text-center'>
+				<div data-aos="fade-up" data-aos-duration="800" className='relative z-[100] flex flex-col justify-center items-center text-white h-full px-[20px]'>
+					<h3  className='font-[600] font-montserrat text-[30px] md:text-[64px] leading-[40px] md:leading-[80px] capitalize md:w-[525px] text-center'>
 						About KCCA Program
 					</h3>
 					<div className=''>
@@ -48,7 +63,7 @@ const Index = () => {
 					</div>
 				</div>
 			</div>
-			<section className='md:h-[106px] flex flex-col md:flex-row md:items-center pl-[20px] md:pl-[120px] relative bg-white '>
+			<section data-aos="fade-right" data-aos-duration="900" className='md:h-[106px] flex flex-col md:flex-row md:items-center pl-[20px] md:pl-[120px] relative bg-white '>
 				<ul className='flex flex-wrap md:justify-between md:basis-[90%] gap-[15px]'>
 					<li>
 						<Link
@@ -94,6 +109,7 @@ const Index = () => {
 			</section>
 			<section
 				id='about'
+				data-aos="fade-up" data-aos-duration="900"
 				className='px-[20px] md:px-[60px] md:flex justify-between  text-justify mb-[40px] md:mb-[120px] bg-white'
 			>
 				<article className='flex-1 mr-[20px]'>
@@ -108,7 +124,8 @@ const Index = () => {
 						of what you need to know about the KCCA 2023 programme:
 					</p>
 					{/* </section> */}
-					<div id='feature'>
+					<div id='feature'
+					data-aos="fade-up" data-aos-duration="900">
 						<h3 className='font-[600] font-montserrat text-[24px] leading-8 text-[#3c3838] mb-[16px]'>
 							Special Features of the 2023 Edition:
 						</h3>
@@ -179,7 +196,9 @@ const Index = () => {
 						</p>
 					</div>
 				</article>
-				<aside className='flex-1 flex flex-col justify-center h-full relative mt-[20px] gap-x-[20px]'>
+				<aside 
+				data-aos="fade-up" data-aos-duration="900"
+				className='flex-1 flex flex-col justify-center h-full relative mt-[20px] gap-x-[20px]'>
 					<div className='md:max-w-[506px] md:absolute right-0 md:top-[100px]'>
 						<img
 							src='/images/front.JPG'
@@ -197,28 +216,35 @@ const Index = () => {
 				</aside>
 			</section>
 			<section
+			
 				id='timetable'
 				className='px-[20px] md:px-[60px] text-justify bg-[#F6F8F7] py-[30px] md:py-[70px]'
 			>
-				<h3 className='font-[600] font-montserrat text-[24px] leading-8 text-[#3c3838] mb-[16px]'>
+				<h3 
+				data-aos="fade-up" data-aos-duration="900"
+				className='font-[600] font-montserrat text-[24px] leading-8 text-[#3c3838] mb-[16px]'>
 					Program timetable:
 				</h3>
 				<Timetable
+				data-aos="fade-up" data-aos-duration="900"
 					duration='March - July 2023'
 					title='Application portal'
 					description='The portal for application will be opened for registration by interested candidates from March - July 2023. (The registration is ongoing)'
 				/>
 				<Timetable
+				data-aos="fade-up" data-aos-duration="900"
 					duration='April - July 2023'
 					title='Screening'
 					description='Screening of accepted students will take place between April - May, 2023.'
 				/>
 				<Timetable
+				data-aos="fade-up" data-aos-duration="900"
 					duration='August 2023'
 					title='Bootcamp'
 					description='The bootcamp is schedule to start from August, 2023'
 				/>
 				<Timetable
+				data-aos="fade-up" data-aos-duration="900"
 					duration='September 2023'
 					title='Hackathon'
 					description='The hackathon is scheduled to start from September, 2023.'
@@ -228,7 +254,9 @@ const Index = () => {
 				id='eligibility'
 				className='px-[20px] md:px-[60px] text-justify bg-white py-[30px] md:py-[70px] flex flex-col md:flex-row gap-x-[40px] items-center'
 			>
-				<article className='flex-1'>
+				<article 
+				data-aos="fade-up" data-aos-duration="900"
+				className='flex-1'>
 					<h3 className='font-[600] font-montserrat text-[24px] leading-8 text-[#3c3838] mb-[16px]'>
 						Eligibility for the 2023 KCCA Cohort:
 					</h3>
@@ -253,7 +281,9 @@ const Index = () => {
 							Should be a Club Member
 						</li>
 					</ul>
-					<div className='mt-[20px] md:mt-[40px]'>
+					<div 
+					data-aos="fade-up" data-aos-duration="900"
+					className='mt-[20px] md:mt-[40px]'>
 						<h3 className='font-[600] font-montserrat text-[24px] leading-8 text-[#3c3838] mb-[16px]'>
 							How to Apply:
 						</h3>
@@ -293,7 +323,9 @@ const Index = () => {
 					</div>
 				</article>
 				<aside className='flex-1'>
-					<div className='md:max-w-[506px] md:ml-40'>
+					<div 
+					data-aos="fade-up" data-aos-duration="900"
+					className='md:max-w-[506px] md:ml-40'>
 						<img
 							src='/images/kcca7.JPG'
 							className='max-w-full rounded-md'
@@ -303,6 +335,7 @@ const Index = () => {
 				</aside>
 			</section>
 			<section
+			data-aos="fade-up" data-aos-duration="900"
 				id='benefit'
 				className='px-[20px] md:px-[60px] text-justify bg-[#F6F8F7] py-[30px] md:py-[70px]'
 			>
