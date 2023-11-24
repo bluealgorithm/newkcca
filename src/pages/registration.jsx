@@ -9,8 +9,9 @@ import { useRouter } from 'next/router';
 import Select from 'react-select';
 const API_URL = 'https://restfulcountries.com/api/v1/countries';
 const BEARER_TOKEN = process.env.NEXT_PUBLIC_COUNTRY_FETCH_TOKEN;
-import AOS from 'aos'
-import "aos/dist/aos.css";
+// import AOS from 'aos'
+// import "aos/dist/aos.css";
+import Animation from '../../components/Animation'
 
 
 // import kcca_agreement from '../kcca_agreement.pdf';
@@ -40,13 +41,13 @@ const Registration = () => {
 	const [countries, setCountries] = useState([]);
 	const [stateOfResidence, setStateOfResidence] = useState([]);
 
-	useEffect(() => {
-		AOS.init({
-		//   disable: "phone",
-		  duration: 700,
-		  easing: "ease-out-cubic",
-		});
-	  }, []);
+	// useEffect(() => {
+	// 	AOS.init({
+	// 	//   disable: "phone",
+	// 	  duration: 700,
+	// 	  easing: "ease-out-cubic",
+	// 	});
+	//   }, []);
 	
 	useEffect(() => {
 		// Function to fetch list of countries
@@ -224,6 +225,7 @@ const Registration = () => {
 	return (
 		<>
 			<Nav />
+		<Animation>
 			<div 
 			 className=' bg-white pb-[40px] md:pb-[160px] text-black'>
 				<section className='w-[90%] md:w-[1104px] mt-[30px] md:mt-[72px] p-[10px] md:p-[40px] mx-auto flex flex-col gap-[15px] md:gap-[40px] justify-center border border-primary pb-4'>
@@ -818,6 +820,7 @@ const Registration = () => {
 				<WhatsappButton />
 			</div>
 			<Footer />
+		</Animation>
 		</>
 	);
 };

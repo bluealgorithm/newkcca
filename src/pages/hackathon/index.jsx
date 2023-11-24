@@ -1,10 +1,14 @@
 import React from 'react';
 import Nav from '../../../components/Nav';
 import Link from 'next/link';
+import Animation from '../../../components/Animation'
+
+
 const Index = () => {
 	return (
-		<div>
+		<>
 			<Nav />
+			<Animation>
 			<div className="relative bg-[url('/images/hackathon.jpeg')] h-[100vh] bg-cover bg-top overflow-hidden z-[50]">
 				<div
 					className='absolute top-[1px] left-0 right-0 bottom-0 min-h-[100vh] z-[1] bg-black'
@@ -13,7 +17,9 @@ const Index = () => {
 						// "linear-gradient(84.59deg, rgba(0, 0, 0, 0.58) 17.84%, rgba(0, 0, 0, 0.17) 52.14%, rgba(0, 0, 0, 0.65) 80.9%)",
 					}}
 				/>
-				<div className='relative z-[100] flex flex-col justify-center items-center text-white h-full px-[20px]'>
+				<div 
+				data-aos="fade-up" data-aos-duration="900"
+				className='relative z-[100] flex flex-col justify-center items-center text-white h-full px-[20px]'>
 					<h3 className='font-[600] font-montserrat text-[30px] md:text-[64px] leading-[40px] md:leading-[80px] capitalize md:w-[800px] text-center'>
 						About {new Date().getFullYear()} Hackathon Program
 					</h3>
@@ -31,7 +37,9 @@ const Index = () => {
 				</div>
 			</div>
 			<section className='pt-[20px] px-[20px] md:px-[60px] md:flex justify-between  text-justify mb-[40px] md:mb-[120px] bg-white'>
-				<article className='flex-1 mr-[20px] text-[19px]'>
+				<article 
+				data-aos="fade-up" data-aos-duration="900"
+				className='flex-1 mr-[20px] text-[19px]'>
 					<h1 className='font-[600] font-montserrat text-[30px] leading-10 mb-[16px]'>
 						KIDS IN TECH CONFERENCE AND HACKATHON
 					</h1>
@@ -45,6 +53,9 @@ const Index = () => {
 						problem solvers.
 					</p>
 					{/* </section> */}
+					<div
+					data-aos="fade-up" data-aos-duration="900"
+					>
 					<h3 className='font-[600] font-montserrat text-[24px] leading-8 mb-[16px]'>
 						WHY KIDS IN TECH CONFERENCE AND HACKATHON
 					</h3>
@@ -137,6 +148,10 @@ const Index = () => {
 						experts and seek guidance on their technological
 						interests.
 					</p>
+					</div>
+					<div
+					data-aos="fade-up" data-aos-duration="900"
+					>
 					<h3 className='font-[600] font-montserrat text-[24px] leading-8 mb-[16px]'>
 						HACKATHON
 					</h3>
@@ -176,6 +191,7 @@ const Index = () => {
 						young participants and provide tangible rewards for
 						their hard work and dedication.
 					</p>
+					</div>
 					<h3 className='font-[600] font-montserrat text-xl capitalize leading-8 underline mb-[16px]'>
 						target audience
 					</h3>
@@ -187,6 +203,9 @@ const Index = () => {
 						beginners to those with advanced skills, and all are
 						welcome to join this inclusive and diverse event.
 					</p>
+					<div
+					data-aos="fade-up" data-aos-duration="900"
+					>
 					<h3 className='font-[600] font-montserrat text-xl  leading-8 underline mb-[16px]'>
 						About the event
 					</h3>
@@ -240,6 +259,10 @@ const Index = () => {
 						Conference Hall, Nigeria Institute of Mining and
 						Geoscience, Tudun Wada, Jos Plateau State. Nigeria.
 					</p>
+					</div>
+					<div 
+					data-aos="fade-up" data-aos-duration="900"
+					>
 					<h3 className='font-[600] font-montserrat text-xl leading-8 mb-[16px]'>
 						Registration Guidelines for School Participant Groups:
 					</h3>
@@ -309,6 +332,10 @@ const Index = () => {
 						experiences related to climate situations and
 						recommended solutions.
 					</p>
+					</div>
+					<div
+					data-aos="fade-up" data-aos-duration="900"
+					>
 					<h3 className='font-[600] font-montserrat text-xl capitalize leading-8 underline mb-[16px]'>
 						Benefits and Rewards for Junior Participants:
 					</h3>
@@ -340,6 +367,10 @@ const Index = () => {
 						</li>
 						<li>A printer machines</li>
 					</ul>
+					</div>
+					<div
+					data-aos="fade-up" data-aos-duration="900"
+					>
 					<h3 className='font-[600] text-[20px] my-2 text-black'>
 						Benefits and Rewards for Senior Participants:
 					</h3>{' '}
@@ -437,17 +468,21 @@ const Index = () => {
 						impact on our planet through innovation and
 						entrepreneurship.
 					</p>
+					</div>
 				</article>
 			</section>
-			<div className='flex justify-center items-center'>
+			<div 
+			data-aos="fade-up" data-aos-duration="900"
+			className='flex justify-center items-center'>
 				<Link
 					href='/hackathon/register'
-					className='font-[600] text-[16px] font-montserrat text-white bg-primary p-4 w-full md:w-[428px] mt-[40px] mb-[16px] block text-center rounded-md'
+					className='font-[600] text-[16px] font-montserrat text-white bg-primary p-4 w-full md:w-[428px] mt-[40px] mb-[16px] block  text-center rounded-md'
 				>
 					REGISTER NOW
 				</Link>
 			</div>
-		</div>
+			</Animation>
+		</>
 	);
 };
 

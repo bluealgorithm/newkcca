@@ -4,20 +4,9 @@ import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
 import WhatsappButton from '../../components/WhatsappButton';
 import Link from 'next/link';
-import AOS from 'aos'
-import "aos/dist/aos.css";
-
+import Animation from '../../components/Animation'
 
 const Index = () => {
-
-useEffect(() => {
-    AOS.init({
-    //   disable: "phone",
-      duration: 700,
-      easing: "ease-out-cubic",
-    });
-  }, []);
-
 	const Timetable = ({ duration, title, description }: any) => {
 		return (
 			<div className='flex flex-col md:flex-row items-start'>
@@ -37,6 +26,7 @@ useEffect(() => {
 	};
 	return (
 		<>
+		<Animation>
 			<Nav />
 			<div  className="z-[50] relative bg-[url('/images/kcca2.JPG')] h-[100vh] bg-cover bg-center overflow-hidden">
 				<div
@@ -108,11 +98,12 @@ useEffect(() => {
 				</ul>
 			</section>
 			<section
-				id='about'
-				data-aos="fade-up" data-aos-duration="900"
+				id='about'			
 				className='px-[20px] md:px-[60px] md:flex justify-between  text-justify mb-[40px] md:mb-[120px] bg-white'
 			>
-				<article className='flex-1 mr-[20px]'>
+				<article 
+					data-aos="fade-up" data-aos-duration="900"
+				className='flex-1 mr-[20px]'>
 					<h3 className='font-[600] font-montserrat text-[24px] leading-8 text-[#3c3838] mb-[16px]'>
 						About the program
 					</h3>
@@ -206,7 +197,9 @@ useEffect(() => {
 							alt=''
 						/>
 					</div>
-					<div className='md:max-w-[506px] md:absolute right-[0px] md:top-[500px]'>
+					<div 
+						data-aos="fade-up" data-aos-duration="900"
+					className='md:max-w-[506px] md:absolute right-[0px] md:top-[500px]'>
 						<img
 							src='/images/front2.jpg'
 							className=' rounded-md '
@@ -215,8 +208,7 @@ useEffect(() => {
 					</div>
 				</aside>
 			</section>
-			<section
-			
+			<section			
 				id='timetable'
 				className='px-[20px] md:px-[60px] text-justify bg-[#F6F8F7] py-[30px] md:py-[70px]'
 			>
@@ -387,6 +379,7 @@ useEffect(() => {
 				<WhatsappButton />
 			</div>
 			<Footer />
+			</Animation>	
 		</>
 	);
 };

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import Animation from '../../components/Animation'
 
 const maxMembers = 5;
 
@@ -75,6 +76,7 @@ export default function Register() {
 
 	return (
 		<>
+		<Animation>
 			<div className='p-8'>
 				<h1 className='text-2xl font-medium mb-8'>
 					Register New Group
@@ -211,6 +213,7 @@ export default function Register() {
 					</button>
 				</form>
 			</div>
+		</Animation>
 		</>
 	);
 }

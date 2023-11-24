@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Nav from '../../../components/Nav';
+import Animation from '../../../components/Animation'
 import Footer from '../../../components/Footer';
 // async function handleSubmit(e) {
 // 	e.preventDefault();
@@ -194,6 +195,8 @@ export default function RegisterForm() {
 	return (
 		<>
 			<Nav />
+			<Animation>
+
 			<section className='w-[90%] md:w-[1104px] mt-[30px] md:mt-[72px] p-[10px] md:p-[40px] mx-auto flex flex-col gap-[15px] md:gap-[40px] justify-center pb-4'>
 				<form
 					onSubmit={handleSubmit}
@@ -205,7 +208,7 @@ export default function RegisterForm() {
 					<div className='md:flex gap-x-[40px]'>
 						<div className='flex-1 mb-[20px]'>
 							<label
-								className='block font-medium mb-2'
+								className='block font-medium mb-2 text-[20px]'
 								htmlFor='groupName'
 							>
 								Group Name
@@ -214,7 +217,8 @@ export default function RegisterForm() {
 								id='groupName'
 								name='groupName'
 								type='text'
-								className='font-[400] text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] border-none mt-[8px] p-[16px]'
+								placeholder='e.g Group A'
+								className='font-[400] border-2 border-[#20C997] outline-[#20C997] text-[18px] font-montserrat text-[#a2a3a3] w-full h-[56px] mt-[8px] p-[16px]'
 								style={{
 									background: '#FFFFFF',
 									boxShadow:
@@ -228,7 +232,7 @@ export default function RegisterForm() {
 						</div>
 						<div className='flex-1 mb-[20px]'>
 							<label
-								className='block font-medium mb-2'
+								className='block font-medium mb-2 text-[20px]'
 								htmlFor='projectName'
 							>
 								Project Name
@@ -237,7 +241,8 @@ export default function RegisterForm() {
 								id='projectName'
 								name='projectName'
 								type='text'
-								className='font-[400] text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] border-none mt-[8px] p-[16px]'
+								placeholder='e.g Weather Api'
+								className='font-[400] border-2 border-[#20C997] outline-[#20C997] text-[18px] font-montserrat text-[#a2a3a3] w-full h-[56px] mt-[8px] p-[16px]'
 								style={{
 									background: '#FFFFFF',
 									boxShadow:
@@ -253,7 +258,7 @@ export default function RegisterForm() {
 					<div className='flex-1 mb-[20px]'>
 						<label
 							htmlFor='category'
-							className='font-[400] font-montserrat text-[16px] leading-[24px] block'
+							className='font-[400] font-montserrat text-[20px] leading-[24px] block'
 						>
 							Category
 						</label>
@@ -263,7 +268,7 @@ export default function RegisterForm() {
 							id='category'
 							onChange={handleChange}
 							value={state.category}
-							className='font-[400] text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] border-none mt-[8px] p-[16px] bg-white'
+							className='font-[400] border-2 border-[#20C997] outline-[#20C997] text-[18px] font-montserrat text-[#a2a3a3] w-full h-[56px] mt-[8px] p-[16px] bg-white'
 							style={{
 								background: '#FFFFFF',
 								boxShadow: ' 4px 4px 8px rgba(0, 0, 0, 0.16)',
@@ -278,7 +283,7 @@ export default function RegisterForm() {
 					{/* <div className='md:flex gap-x-[40px]'> */}
 					<div className='flex-1 mb-[20px] md:mb-4'>
 						<label
-							className='block font-medium mb-2'
+							className='block font-medium mb-2 text-[20px]'
 							htmlFor='description'
 						>
 							Project Description
@@ -286,7 +291,7 @@ export default function RegisterForm() {
 						<textarea
 							id='description'
 							name='description'
-							className='font-[400] text-[14px] font-montserrat text-[#a2a3a3] w-full h-[150px] border-none mt-[8px] p-[16px]'
+							className='font-[400] border-2 border-[#20C997] outline-[#20C997] text-[18px] font-montserrat text-[#a2a3a3] w-full h-[150px] mt-[8px] p-[16px]'
 							style={{
 								background: '#FFFFFF',
 								boxShadow: ' 4px 4px 8px rgba(0, 0, 0, 0.16)',
@@ -307,7 +312,7 @@ export default function RegisterForm() {
 							</p>
 						)}
 					</div>
-					<label className='block font-medium mb-2' htmlFor='regId'>
+					<label className='block font-medium mb-2 text-[20px]' htmlFor='regId'>
 						Group Members
 					</label>
 					<div className='flex flex-col gap-y-3 md:gap-y-0 md:flex-row items-center gap-x-3 mb-4'>
@@ -315,7 +320,7 @@ export default function RegisterForm() {
 							id='regId'
 							name='regId'
 							type='text'
-							className='font-[400] text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] border-none mt-[8px] p-[16px]'
+							className='font-[400] border-2 border-[#20C997] outline-[#20C997] text-[18px] font-montserrat text-[#a2a3a3] w-full h-[56px] mt-[8px] p-[16px]'
 							style={{
 								background: '#FFFFFF',
 								boxShadow: ' 4px 4px 8px rgba(0, 0, 0, 0.16)',
@@ -330,7 +335,7 @@ export default function RegisterForm() {
 							id='githubUsername'
 							name='githubUsername'
 							type='text'
-							className='font-[400] text-[14px] font-montserrat text-[#a2a3a3] w-full h-[56px] border-none mt-[8px] p-[16px]'
+							className='font-[400] border-2 border-[#20C997] outline-[#20C997] text-[18px] font-montserrat text-[#a2a3a3] w-full h-[56px]  mt-[8px] p-[16px]'
 							style={{
 								background: '#FFFFFF',
 								boxShadow: ' 4px 4px 8px rgba(0, 0, 0, 0.16)',
@@ -406,14 +411,17 @@ export default function RegisterForm() {
 							))}
 						</ul>
 					)}
+					<div className='flex justify-center items-center'>
 					<button
 						type='submit'
-						className='bg-blue-500 text-white px-4 py-2 rounded-lg'
+						className='font-[600] text-[18px] bg-primary border-2 hover:bg-white hover:border-2 border-[#20C997] duration-500 font-montserrat text-white hover:text-[#20C997] rounded-[8px] w-full md:max-w-[488px] p-[16px]'
 					>
 						Submit
 					</button>
+					</div>
 				</form>
 			</section>
+			</Animation>
 			<Footer />
 		</>
 	);
