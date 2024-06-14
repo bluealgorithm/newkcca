@@ -9,6 +9,9 @@ import { url } from '../../url';
 import WhatsappButton from '../../components/WhatsappButton';
 import { useRouter } from 'next/router';
 import Select from 'react-select';
+import { ZodType, z } from "zod";
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod'
 const API_URL = 'https://restfulcountries.com/api/v1/countries';
 const BEARER_TOKEN = process.env.NEXT_PUBLIC_COUNTRY_FETCH_TOKEN;
 
@@ -32,6 +35,45 @@ interface RegistrationFormData {
 }
 
 const RegistrationForm: React.FC = () => {
+
+  // Schema for the first step (General Information)
+  const firstStepSchema = z.object({
+    emailAddress: z.string().email('Invalid email address'),
+    age: z.string().min(1, 'Age is required').max(2, 'Age must be a 2-digit number'),
+    currentGrade: z.string().min(1, 'Current Grade is required'),
+  });
+
+  // Schema for the second step (Coding Experience)
+  const secondStepSchema = z.object({
+    hasCodingExperience: z.string().min(1, 'Please select an option'),
+    programmingLanguages: z.array(z.string()).optional(),
+    otherLanguage: z.string().optional(),
+    completedCodingCourse: z.string().min(1, 'Please select an option'),
+    completedPaidCourse: z.string().optional().refine(
+      (val) => val === '' || val === 'yes' || val === 'no',
+      'Invalid value for Paid Course'
+    ),
+    comfortableWithCode: z.string().min(1, 'Please select an option'),
+  });
+
+  // Schema for the third step (Interests)
+  const thirdStepSchema = z.object({
+    programInterest: z.string().min(1, 'Please select a program'),
+    interestReason: z.string().min(1, 'Please provide a reason'),
+    careerGoals: z.string().min(1, 'Please provide your career goals'),
+    financialBackground: z.string().min(1, 'Please select an option'),
+    additionalOfferings: z.string().min(1, 'Please select an option'),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    getValues,
+  } = useForm({
+    resolver: zodResolver(firstStepSchema),
+  });
+
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState<RegistrationFormData>({
     firstName: '',
@@ -52,6 +94,8 @@ const RegistrationForm: React.FC = () => {
     additionalOfferings: '',
   });
 
+
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -67,15 +111,48 @@ const RegistrationForm: React.FC = () => {
     }
   };
 
+  const [formError, setFormError] = useState('');
+
   const handleNext = () => {
-    setStep(step + 1);
+    setFormError('') // reset the formError state.
+
+    const formValues = getValues();
+    const isFirstStepValid = firstStepSchema.safeParse(formValues).success;
+    const isEmailValid = formValues.emailAddress.trim().length > 0;
+    const isAgeValid = formValues.age.toString().trim().length > 0;
+
+    if (step === 1) {
+      const isFirstStepValid = firstStepSchema.safeParse(formValues).success;
+      if (isFirstStepValid) {
+        setStep(step + 1);
+      } else {
+        setFormError("Please fill all required fields in the first step.");
+      }
+    } else if (step === 2) {
+      const isSecondStepValid = secondStepSchema.safeParse(formValues).success;
+      if (isSecondStepValid) {
+        setStep(step + 1);
+      } else {
+        setFormError("Please fill all required fields in the second step.");
+      }
+    } else if (step === 3) {
+      const isThirdStepValid = thirdStepSchema.safeParse(formValues).success;
+      if (isThirdStepValid) {
+        // Proceed to form submission or any other action
+      } else {
+        setFormError("Please fill all required fields in the third step.");
+      }
+    }
+
   };
 
   const handleBack = () => {
     setStep(step - 1);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const onFormSubmit = (e: React.FormEvent) => {
+    console.log("Hello, World!");
+
     e.preventDefault();
     console.log(formData);
     // Add your form submission logic here
@@ -84,6 +161,7 @@ const RegistrationForm: React.FC = () => {
   return (
     <>
       <Nav />
+      {formError && <p className="text-red-500">{formError}</p>}
       <div className="max-w-4xl mx-auto p-8">
 
         <h1 className="text-2xl font-bold mb-8 text-center">Registration Questionnaire</h1>
@@ -111,7 +189,7 @@ const RegistrationForm: React.FC = () => {
           </div>
         </div>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={onFormSubmit}>
           {step === 1 && (
             <div className="mb-4">
               <h2 className="text-2xl font-bold mb-6">General Information</h2>
@@ -122,12 +200,13 @@ const RegistrationForm: React.FC = () => {
                   </label>
                   <input
                     type="email"
-                    id="emailAddress" 
-                    name="emailAddress"
-                    value={formData.emailAddress}
-                    onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-[#63CA97]"
+                    id="emailAddress"
+                    {...register('emailAddress')}
+                    className={`w-full px-3 py-2 border ${errors.emailAddress ? 'border-red-500' : 'border-gray-300'} rounded focus:outline-none focus:ring-1 focus:ring-[#63CA97]`}
                   />
+                  {errors.emailAddress && (
+                    <span className='text-red-500'>{errors.emailAddress.message?.toString()}</span>
+                  )}
                 </div>
 
                 <div className="mb-2">
@@ -137,14 +216,14 @@ const RegistrationForm: React.FC = () => {
                   <input
                     type="number"
                     id="age"
-                    name="age"
-                    value={formData.age}
-                    onChange={handleChange}
+                    {...register('age', { valueAsNumber: true })}
+                    maxLength={2}
                     max={16}
                     min={9}
-                    maxLength={2}
-                    className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-[#63CA97]"
+                    className={`w-full px-3 py-2 border ${errors.age ? 'border-red-500' : 'border-gray-300'
+                      } rounded focus:outline-none focus:ring-1 focus:ring-[#63CA97]`}
                   />
+                  {errors.age && <span className='text-red-500'>{errors.age.message?.toString()}</span>}
                 </div>
               </div>
             </div>
@@ -164,6 +243,7 @@ const RegistrationForm: React.FC = () => {
                     checked={formData.hasCodingExperience === 'yes'}
                     onChange={handleChange}
                     className="mr-2"
+                    required
                   />
                   <label htmlFor="hasCodingExperienceYes" className="mr-4">Yes</label>
                   <input
@@ -174,6 +254,7 @@ const RegistrationForm: React.FC = () => {
                     checked={formData.hasCodingExperience === 'no'}
                     onChange={handleChange}
                     className="mr-2"
+                    required
                   />
                   <label htmlFor="hasCodingExperienceNo">No</label>
                 </div>
@@ -194,6 +275,7 @@ const RegistrationForm: React.FC = () => {
                             checked={formData.programmingLanguages.includes(language)}
                             onChange={handleCheckboxChange}
                             className="mr-2"
+                            required
                           />
                           <label htmlFor={language}>{language}</label>
                         </div>
@@ -209,6 +291,7 @@ const RegistrationForm: React.FC = () => {
                           value={formData.otherLanguage || ''}
                           onChange={handleChange}
                           className="w-full px-3 py-2 border border-gray-300 rounded"
+                          required
                         />
                       </div>
                     )}
@@ -225,6 +308,7 @@ const RegistrationForm: React.FC = () => {
                         checked={formData.completedCodingCourse === 'true'}
                         onChange={handleChange}
                         className="mr-2"
+                        required
                       />
                       <label htmlFor="completedCodingCourseTrue" className="mr-4">True</label>
                       <input
@@ -235,6 +319,7 @@ const RegistrationForm: React.FC = () => {
                         checked={formData.completedCodingCourse === 'false'}
                         onChange={handleChange}
                         className="mr-2"
+                        required
                       />
                       <label htmlFor="completedCodingCourseFalse">False</label>
                     </div>
@@ -252,6 +337,8 @@ const RegistrationForm: React.FC = () => {
                           checked={formData.completedPaidCourse === 'yes'}
                           onChange={handleChange}
                           className="mr-2"
+                          required
+
                         />
                         <label htmlFor="completedPaidCourseYes" className="mr-4">Yes</label>
                         <input
@@ -262,6 +349,7 @@ const RegistrationForm: React.FC = () => {
                           checked={formData.completedPaidCourse === 'no'}
                           onChange={handleChange}
                           className="mr-2"
+                          required
                         />
                         <label htmlFor="completedPaidCourseNo">No</label>
                       </div>
@@ -279,6 +367,7 @@ const RegistrationForm: React.FC = () => {
                         checked={formData.comfortableWithCode === 'yes'}
                         onChange={handleChange}
                         className="mr-2"
+                        required
                       />
                       <label htmlFor="comfortableWithCodeYes" className="mr-4">Yes</label>
                       <input
@@ -289,6 +378,7 @@ const RegistrationForm: React.FC = () => {
                         checked={formData.comfortableWithCode === 'no'}
                         onChange={handleChange}
                         className="mr-2"
+                        required
                       />
                       <label htmlFor="comfortableWithCodeNo">No</label>
                     </div>
@@ -308,6 +398,7 @@ const RegistrationForm: React.FC = () => {
                   value={formData.programInterest}
                   onChange={handleChange}
                   className="w-full px-3 py-2 border border-gray-300 rounded"
+                  required
                 >
                   <option value="" disabled>Select</option>
                   <option value="Web Development (for beginners)">Web Development (for beginners)</option>
@@ -324,8 +415,9 @@ const RegistrationForm: React.FC = () => {
                   name="interestReason"
                   value={formData.interestReason}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded"
+                  className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-[#63CA97]"
                   rows={3}
+                  required
                 ></textarea>
               </div>
 
@@ -335,8 +427,9 @@ const RegistrationForm: React.FC = () => {
                   name="careerGoals"
                   value={formData.careerGoals}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded"
+                  className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-[#63CA97]"
                   rows={3}
+                  required
                 ></textarea>
               </div>
 
@@ -352,7 +445,8 @@ const RegistrationForm: React.FC = () => {
                     value="yes"
                     checked={formData.financialBackground === 'yes'}
                     onChange={handleChange}
-                    className="mr-2"
+                    className="mr-2 focus:outline-none focus:ring-1 focus:ring-[#63CA97]"
+                    required
                   />
 
                   <label htmlFor="financialBackgroundYes" className="mr-4">Yes</label>
@@ -363,7 +457,8 @@ const RegistrationForm: React.FC = () => {
                     value="no"
                     checked={formData.financialBackground === 'no'}
                     onChange={handleChange}
-                    className="mr-2"
+                    className="mr-2 focus:outline-none focus:ring-1 focus:ring-[#63CA97]"
+                    required
                   />
                   <label htmlFor="financialBackgroundNo">No</label>
                 </div>
@@ -377,6 +472,7 @@ const RegistrationForm: React.FC = () => {
                   value={formData.additionalOfferings}
                   onChange={handleChange}
                   className="w-full px-3 py-2 border border-gray-300 rounded"
+                  required
                 >
                   <option value="" disabled>Select</option>
                   <option value="Not a Factor">Not a Factor</option>
