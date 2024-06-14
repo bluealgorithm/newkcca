@@ -1,6 +1,6 @@
 'use client'; // Ensure this is at the very top
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Footer from '../../components/Footer';
 import Nav from '../../components/Nav';
 import Swal from 'sweetalert2';
@@ -9,15 +9,16 @@ import { url } from '../../url';
 import WhatsappButton from '../../components/WhatsappButton';
 import { useRouter } from 'next/router';
 import Select from 'react-select';
-import { z } from "zod";
-import { useForm, Resolver } from 'react-hook-form';
+import { ZodType, z } from "zod";
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Toaster, toast } from 'sonner';
-
 const API_URL = 'https://restfulcountries.com/api/v1/countries';
 const BEARER_TOKEN = process.env.NEXT_PUBLIC_COUNTRY_FETCH_TOKEN;
 
 interface RegistrationFormData {
+  firstName: string;
+  lastName: string;
   emailAddress: string;
   age: string;
   currentGrade: string;
@@ -34,48 +35,51 @@ interface RegistrationFormData {
   additionalOfferings: string;
 }
 
-const firstStepSchema = z.object({
-  emailAddress: z.string().email('Invalid email address'),
-  age: z.string().min(1, 'Age is required').max(2, 'Age must be a 2-digit number'),
-});
-
-const secondStepSchema = z.object({
-  hasCodingExperience: z.string().min(1, 'Please select an option'),
-  programmingLanguages: z.array(z.string()).optional().refine((arr) => arr !== undefined && arr.length > 0, 'Please select at least one programming language'),
-  otherLanguage: z.string().optional(),
-  completedCodingCourse: z.string().min(1, 'Please select an option'),
-  completedPaidCourse: z.string().optional().refine(
-    (val) => val === '' || val === 'yes' || val === 'no',
-    'Invalid value for Paid Course'
-  ),
-  comfortableWithCode: z.string().min(1, 'Please select an option'),
-  currentGrade: z.string().min(1, 'Current Grade is required'),
-});
-
-const thirdStepSchema = z.object({
-  programInterest: z.string().min(1, 'Please select a program'),
-  interestReason: z.string().min(1, 'Please provide a reason'),
-  careerGoals: z.string().min(1, 'Please provide your career goals'),
-  financialBackground: z.string().min(1, 'Please select an option'),
-  additionalOfferings: z.string().min(1, 'Please select an option'),
-});
-
-const getSchema = (step: number): Resolver<any> => {
-  switch (step) {
-    case 1:
-      return zodResolver(firstStepSchema);
-    case 2:
-      return zodResolver(secondStepSchema);
-    case 3:
-      return zodResolver(thirdStepSchema);
-    default:
-      return zodResolver(firstStepSchema);
-  }
-};
-
 const RegistrationForm: React.FC = () => {
+
+  // Schema for the first step (General Information)
+  const firstStepSchema = z.object({
+    emailAddress: z.string().email('Invalid email address'),
+    age: z.string().min(1, 'Age is required').max(2, 'Age must be a 2-digit number'),
+    currentGrade: z.string().min(1, 'Current Grade is required'),
+  });
+
+  // Schema for the second step (Coding Experience)
+  const secondStepSchema = z.object({
+    hasCodingExperience: z.string().min(1, 'Please select an option'),
+    programmingLanguages: z.array(z.string()).optional().refine((arr) => arr !== undefined && arr.length > 0, 'Please select at least one programming language'),
+    otherLanguage: z.string().optional(),
+    completedCodingCourse: z.string().min(1, 'Please select an option'),
+    completedPaidCourse: z.string().optional().refine(
+      (val) => val === '' || val === 'yes' || val === 'no',
+      'Invalid value for Paid Course'
+    ),
+    comfortableWithCode: z.string().min(1, 'Please select an option'),
+  });
+
+  // Schema for the third step (Interests)
+  const thirdStepSchema = z.object({
+    programInterest: z.string().min(1, 'Please select a program'),
+    interestReason: z.string().min(1, 'Please provide a reason'),
+    careerGoals: z.string().min(1, 'Please provide your career goals'),
+    financialBackground: z.string().min(1, 'Please select an option'),
+    additionalOfferings: z.string().min(1, 'Please select an option'),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    getValues,
+    trigger,
+  } = useForm({
+    resolver: zodResolver(firstStepSchema),
+  });
+
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState<RegistrationFormData>({
+    firstName: '',
+    lastName: '',
     emailAddress: '',
     age: '',
     currentGrade: '',
@@ -92,21 +96,6 @@ const RegistrationForm: React.FC = () => {
     additionalOfferings: '',
   });
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    getValues,
-    trigger,
-  } = useForm({
-    resolver: getSchema(step),
-  });
-
-  useEffect(() => {
-    // Update resolver whenever step changes
-    trigger();
-  }, [step]);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -122,24 +111,19 @@ const RegistrationForm: React.FC = () => {
     }
   };
 
-  const [formError, setFormError] = useState('');
 
   const handleNext = async () => {
-    setFormError(''); // reset the formError state
-
     let isValid = false;
 
     if (step === 1) {
-      const formValues = getValues();
-      formValues.age = formValues.age.toString(); // Convert age to string
-      isValid = await trigger(['emailAddress', 'age']);
+      isValid = await trigger(['emailAddress', 'age', 'currentGrade']);
       if (!isValid) {
         toast.error('Please fill all required fields in step 1', {
           duration: 3000,
         });
       }
     } else if (step === 2) {
-      isValid = await trigger(['hasCodingExperience', 'programmingLanguages', 'completedCodingCourse', 'completedPaidCourse', 'comfortableWithCode', 'currentGrade']);
+      isValid = await trigger(['hasCodingExperience', 'programmingLanguages', 'completedCodingCourse', 'completedPaidCourse', 'comfortableWithCode']);
       if (!isValid) {
         toast.error('Please fill all required fields in step 2.', {
           duration: 3000,
@@ -156,8 +140,6 @@ const RegistrationForm: React.FC = () => {
 
     if (isValid) {
       setStep(step + 1);
-    } else {
-      setFormError(`Please fill all required fields in step ${step}.`);
     }
   };
 
@@ -221,6 +203,8 @@ const RegistrationForm: React.FC = () => {
                     type="email"
                     id="emailAddress"
                     {...register('emailAddress')}
+                    value={formData.emailAddress}
+                    onChange={handleChange}
                     className={`w-full px-3 py-2 border ${errors.emailAddress ? 'border-red-500' : 'border-gray-300'} rounded focus:outline-none focus:ring-1 focus:ring-[#63CA97]`}
                   />
                   {errors.emailAddress && (
@@ -229,13 +213,15 @@ const RegistrationForm: React.FC = () => {
                 </div>
 
                 <div className="mb-2">
-                  <label htmlFor="age" className="mb-2 block font-semibold">
+                  <label htmlFor="gender" className="mb-2 block font-semibold">
                     Age <span className='text-red-400'>*</span>
                   </label>
                   <input
-                    type="number"
+                    type="number  "
                     id="age"
                     {...register('age')}
+                    value={formData.age}
+                    onChange={handleChange}
                     min={9}
                     max={16}
                     maxLength={2}
@@ -257,7 +243,6 @@ const RegistrationForm: React.FC = () => {
                   <input
                     type="radio"
                     id="hasCodingExperienceYes"
-                    name="hasCodingExperience"
                     value="yes"
                     checked={formData.hasCodingExperience === 'yes'}
                     onChange={handleChange}
@@ -268,7 +253,6 @@ const RegistrationForm: React.FC = () => {
                   <input
                     type="radio"
                     id="hasCodingExperienceNo"
-                    name="hasCodingExperience"
                     value="no"
                     checked={formData.hasCodingExperience === 'no'}
                     onChange={handleChange}
@@ -294,7 +278,6 @@ const RegistrationForm: React.FC = () => {
                             checked={formData.programmingLanguages.includes(language)}
                             onChange={handleCheckboxChange}
                             className="mr-2"
-                            required
                           />
                           <label htmlFor={language}>{language}</label>
                         </div>
@@ -310,7 +293,6 @@ const RegistrationForm: React.FC = () => {
                           value={formData.otherLanguage || ''}
                           onChange={handleChange}
                           className="w-full px-3 py-2 border border-gray-300 rounded"
-                          required
                         />
                       </div>
                     )}
@@ -357,6 +339,7 @@ const RegistrationForm: React.FC = () => {
                           onChange={handleChange}
                           className="mr-2"
                           required
+
                         />
                         <label htmlFor="completedPaidCourseYes" className="mr-4">Yes</label>
                         <input
@@ -536,6 +519,7 @@ const RegistrationForm: React.FC = () => {
         <Footer />
       </div>
     </>
+
   );
 };
 
