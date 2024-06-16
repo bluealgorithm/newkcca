@@ -35,10 +35,9 @@ interface RegistrationFormData {
 }
 
 const firstStepSchema = z.object({
-  emailAddress: z.string().email('Invalid email address'),
-  age: z.string().min(1, 'Age is required').max(2, 'Age must be a 2-digit number'),
+  emailAddress: z.string().email('Enter a Valid Email Address'),
+  age: z.string().min(1, 'Age is Required').max(2, 'Age must be a 2-digit number'),
 });
-
 const secondStepSchema = z.object({
   hasCodingExperience: z.string().min(1, 'Please select an option'),
   programmingLanguages: z.array(z.string()).optional().refine((arr) => arr !== undefined && arr.length > 0, 'Please select at least one programming language'),
@@ -221,6 +220,8 @@ const RegistrationForm: React.FC = () => {
                     type="email"
                     id="emailAddress"
                     {...register('emailAddress')}
+                    value={formData.emailAddress}
+                    onChange={handleChange}
                     className={`w-full px-3 py-2 border ${errors.emailAddress ? 'border-red-500' : 'border-gray-300'} rounded focus:outline-none focus:ring-1 focus:ring-[#63CA97]`}
                   />
                   {errors.emailAddress && (
@@ -236,6 +237,8 @@ const RegistrationForm: React.FC = () => {
                     type="number"
                     id="age"
                     {...register('age')}
+                    value={formData.age}
+                    onChange={handleChange}
                     min={9}
                     max={16}
                     maxLength={2}

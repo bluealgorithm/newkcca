@@ -48,7 +48,7 @@ const Nav = () => {
               href="mailto:kidscodeclubafrica@gmail.com"
               className="font-montserrat font-[400] text-[16px] leading-[24px]"
             >
-              Kidscodeclubafrica@gmail.com
+              kidscodeclubafrica@gmail.com
             </a>
           </div>
           <div className="flex items-center gap-2">
