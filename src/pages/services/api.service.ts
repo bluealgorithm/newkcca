@@ -29,15 +29,35 @@ class API {
     return payment;
   }
 
-  async getApplication() {
-    const applications = await axios.get(`${API.baseURL}/apply/id`);
-    return applications;
+  async getApplication(id: string) {
+    const application = await axios.get(`${API.baseURL}/apply/${id}`);
+    return application;
   }
+
   async getApplications() {
     const applications = await axios.get(`${API.baseURL}/apply`);
     return applications;
   }
+
+  async getRegistration(id: string) {
+    const registration = await axios.get(`${API.baseURL}/register/${id}`);
+    return registration;
+  }
+
+  async getRegistrations() {
+    const registrations = await axios.get(`${API.baseURL}/register`);
+    return registrations;
+  }
+
+  async getPayment(id: string) {
+    const getPayment = await axios.get(`${API.baseURL}/payment/${id}`);
+    return getPayment;
+  }
+
+  async getPayments() {
+    const getPayments = await axios.get(`${API.baseURL}/payment`);
+    return getPayments;
+  }
 }
 
 export default API;
-
