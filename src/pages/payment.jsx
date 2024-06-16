@@ -160,105 +160,28 @@ const Payment = () => {
 			<Nav />
 			<Animation>
 				<div className='p-[20px] md:p-[60px] md:px-[80px]'>
-					<h1 className='md:max-w-[1164px] font-[600] text-[20px] md:text-[40px] uppercase'>
-						Pay an annual club fee of N10,000
-					</h1>
+					<h2 className='md:max-w-[1164px] font-[600] text-[20px] md:text-[40px]'>
+						Pay A Club Fee of 8 Million Naira
+					</h2>
 					<div className='w-[96px] h-[5px] mt-[8px] mb-[32px] bg-primary'></div>
-					{/* <h3 className='mb-[32px] font-[600] text-[20px] md:text-[24px] leading-6'>
-						Pay an annual club fee of N10,000
-					</h3> */}
-					<div className='flex flex-col justify-center items-center'>
-						<MdArrowDownward
-							size={40}
-							className='animate-bounce text-primary'
-						/>
-						<p className='mb-[8px] font-[600] text-[18px] leading-6 text-center'>
-							kindly use the email address you use during
-							registration
-						</p>
-					</div>
-					{/* <p className='font-[400] text-[16px] leading-6'>
-						KINDLY INPUT YOUR PERSONAL INFO
-					</p> */}
-					<form>
 						<div className='md:flex md:gap-[122px]'>
 							<div className='form-inp mt-[24px] md:w-[616px]'>
-								<label
+								<h3
 									htmlFor='fullName'
 									className='font-[400] text-[20px]  md:text-[24px]'
 								>
 									Full Name
-									<span className='text-red-500'> *</span>
-								</label>
-								<input
-									required
-									type='text'
-									id='fullName'
-									className='w-full h-[56px] border-none mt-[8px] p-[16px]'
-									style={{
-										background: '#FFFFFF',
-										boxShadow:
-											' 4px 4px 8px rgba(0, 0, 0, 0.16)',
-										borderRadius: '8px',
-									}}
-									placeholder='full Name'
-									name='fullName'
-									value={state.fullName}
-									onChange={handleChange}
-								/>
+								</h3>
+								<p className=''>Akachukwu Egboluche</p>
 							</div>
 							<div className='form-inp mt-[24px] md:w-[616px]'>
-								<label
+								<h3
 									htmlFor='email'
 									className='font-[400] text-[20px]  md:text-[24px]'
 								>
 									Email Address{' '}
-									<span className='text-red-500'> *</span>
-								</label>
-								<input
-									required
-									type='text'
-									id='email'
-									className='w-full h-[56px] border-none mt-[8px] p-[16px]'
-									style={{
-										background: '#FFFFFF',
-										boxShadow:
-											' 4px 4px 8px rgba(0, 0, 0, 0.16)',
-										borderRadius: '8px',
-									}}
-									placeholder='email'
-									name='email'
-									value={state.email}
-									onChange={handleChange}
-								/>
-							</div>
-						</div>
-						{/* END OF FORM ROW */}
-						<div className='md:flex md:gap-[122px]'>
-							<div className='form-inp mt-[24px] md:w-[530px]'>
-								<label
-									htmlFor='regId'
-									className='font-[400] text-[20px]  md:text-[24px]'
-								>
-									Registration ID
-									<span className='text-red-500'> *</span>
-								</label>
-								<input
-									required
-									type='number'
-									id='regId'
-									className='w-full h-[56px] border-none mt-[8px] p-[16px]'
-									style={{
-										background: '#FFFFFF',
-										boxShadow:
-											' 4px 4px 8px rgba(0, 0, 0, 0.16)',
-										borderRadius: '8px',
-									}}
-									placeholder='regId'
-									name='regId'
-									value={state.regId}
-									onChange={handleChange}
-								/>
+								</h3>
+								<p>egbolucheakachukwu@gmail.com</p>
 							</div>
 						</div>
 						<div className='w-4/5 md:w-[332px] mx-auto md:mx-0'>
@@ -268,13 +191,12 @@ const Payment = () => {
 								<button
 									// onClick={handleSubmit}
 									type='submit'
-									className='h-[56px] font-[600] text-[16px] md:text-[24px] text-white w-full bg-green-500 hover:bg-primary mt-[36px] rounded-full'
+									className='h-[48px] font-[600] text-[16px] md:text-[24px] text-white w-full bg-green-500 hover:bg-primary mt-[36px] rounded-md'
 								>
-									fill the required info
+									Pay Now
 								</button>
 							)}
 						</div>
-					</form>
 					{/* <div className='flex flex-col justify-center items-center mt-[70px]'>
 						<MdArrowDownward
 							size={40}

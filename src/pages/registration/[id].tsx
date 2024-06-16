@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Footer from '../../components/Footer';
-import Nav from '../../components/Nav';
-import Swal from 'sweetalert2';
 import 'animate.css';
-import { url } from '../../url';
-import WhatsappButton from '../../components/WhatsappButton';
 import { useRouter } from 'next/router';
 import Select from 'react-select';
+import Swal from 'sweetalert2';
+import Nav from '../../../components/Nav';
+import WhatsappButton from '../../../components/WhatsappButton';
+import Footer from '../../../components/Footer';
 const API_URL = 'https://restfulcountries.com/api/v1/countries';
 const BEARER_TOKEN = process.env.NEXT_PUBLIC_COUNTRY_FETCH_TOKEN;
 
@@ -218,7 +217,7 @@ const Registration = () => {
 						Registration Form
 					</h3>
 					<p className='font-[400] font-montserrat text-[16px] leading-[24px] text-[#a2a3a3] text-center'>
-						Fill out the form to register for the training.
+						paymout the form to register for the training.
 					</p>
 					<h3 className='font-[500] font-montserrat text-[24px] leading-[32px] text-black text-left'>
 						Personal Information:
