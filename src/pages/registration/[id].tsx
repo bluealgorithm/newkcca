@@ -216,9 +216,6 @@ const Registration = () => {
 					<h3 className='font-[500] font-montserrat text-[24px] leading-[32px] text-black text-center'>
 						Registration Form
 					</h3>
-					<p className='font-[400] font-montserrat text-[16px] leading-[24px] text-[#a2a3a3] text-center'>
-						paymout the form to register for the training.
-					</p>
 					<h3 className='font-[500] font-montserrat text-[24px] leading-[32px] text-black text-left'>
 						Personal Information:
 					</h3>

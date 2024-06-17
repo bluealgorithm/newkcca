@@ -39,7 +39,7 @@ const Index = () => {
           </h3>
           <div className="">
             <Link
-              href="/registration"
+              href="/application"
               className="font-[600] text-[16px] font-montserrat text-white bg-primary p-4 w-full md:w-[428px] mt-[40px] mb-[16px] rounded-[4px] block text-center"
             >
               REGISTER NOW
