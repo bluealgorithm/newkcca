@@ -1,6 +1,6 @@
 export interface GeneralInformation {
   emailAddress: string;
-  age: number;
+  age: string;
   grade: string;
 }
 
@@ -62,4 +62,23 @@ export interface RegistrationData {
 export interface PaymentData {
   cohort: string;
   track: string;
+}
+
+
+export interface RegistrationFormData {
+  emailAddress: string;
+  age: string;
+  currentGrade: string;
+  hasCodingExperience: boolean;
+  programmingLanguages: string[];
+  otherLanguage: string;
+  completedCodingCourse: boolean;
+  completedPaidCourse: false;
+  comfortableWithCode: boolean;
+  programInterest: string;
+  interestReason: string;
+  careerGoals: string;
+  financialBackground: boolean;
+  additionalOfferings: string;
+  additionalOfferingsImportance: string;
 }
