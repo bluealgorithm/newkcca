@@ -21,11 +21,12 @@ import {
   useGetPayment,
   useGetPayments,
 } from "../hooks/useApi";
+import { RegistrationData } from "../types/types";
 
 const API_URL = "https://restfulcountries.com/api/v1/countries";
 const BEARER_TOKEN = process.env.NEXT_PUBLIC_COUNTRY_FETCH_TOKEN;
 
-interface RegistrationFormData {
+interface RegistrationFormData extends RegistrationData {
   emailAddress: string;
   age: string;
   currentGrade: string;
@@ -45,10 +46,15 @@ interface RegistrationFormData {
 
 const formSchema = z.object({
   emailAddress: z.string().email("Enter a Valid Email Address"),
-  age: z
+  aage: z
     .string()
-    .min(1, "Age is Required")
-    .max(2, "Age must be a 2-digit number"),
+    .optional()
+    .refine(
+      (val) =>
+        typeof val === "string" &&
+        (val === "" || (val.length >= 1 && val.length <= 2)),
+      "Age must be a 2-digit number"
+    ),
   hasCodingExperience: z.string().min(1, "Please select an option"),
   programmingLanguages: z
     .array(z.string())
@@ -99,6 +105,7 @@ const RegistrationForm: React.FC = () => {
     isPending,
     isError,
   } = useCreateRegistration();
+
   const [formData, setFormData] = useState<RegistrationFormData>({
     emailAddress: "",
     age: "",
@@ -115,6 +122,21 @@ const RegistrationForm: React.FC = () => {
     financialBackground: "",
     additionalOfferings: "",
     additionalOfferingsImportance: "",
+    // Add other fields from RegistrationData as needed
+    firstName: "",
+    lastName: "",
+    city: "",
+    address: "",
+    cohort: "",
+    isInSchool: false,
+    isBoarding: false,
+    school: "",
+    schoolAddress: "",
+    parentName: "",
+    phoneNumber: "",
+    state: "",
+    country: "",
+    gender: "",
   });
 
   const {
@@ -149,6 +171,7 @@ const RegistrationForm: React.FC = () => {
 
   const onFormSubmit = (data: FieldValues) => {
     const formData = data as RegistrationFormData;
+    console.log(formData);
     // Add your form submission logic here
     createRegistration(formData, {
       onSuccess: (response) => {

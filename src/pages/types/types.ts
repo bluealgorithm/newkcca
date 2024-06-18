@@ -46,7 +46,7 @@ export interface RegistrationData {
   city: string;
   address: string;
   cohort: string;
-  age: number;
+  age: string;
   isInSchool: boolean;
   isBoarding: boolean;
   school: string;
