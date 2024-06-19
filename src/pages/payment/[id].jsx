@@ -11,13 +11,15 @@ import { usePaystackPayment } from "react-paystack";
 import WhatsappButton from "../../../components/WhatsappButton";
 import { useGetRegistration } from "../hooks/useApi";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const pk = process.env.NEXT_PUBLIC_PAYSTACK_KEY;
 const Payment = () => {
   const router = useRouter();
   const registrationId = router.query.id
-  const { data, isLoading } = useGetRegistration(registrationId);
-  
+  const { data, isLoading, isSuccess } = useGetRegistration(registrationId);
+  const { mutate, isPending, isSuccess: submitted } = useGetRegistration(registrationId);
+
 
   React.useEffect(() => {
     window.scrollTo(0, 0);
@@ -28,25 +30,28 @@ const Payment = () => {
     {
       fullName: "",
       email: "",
-      regId: "",
+      id: "",
+      amount: ""
     },
   ]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      const registration = data?.data?.data; // Access the nested data
+      if (registration) { // Check if registration exists
+        setState({
+          fullName: `${registration.firstName} ${registration.lastName}`,
+          email: registration.emailAddress,
+          id: registration._id,
+          amount: registration.track === "KCCA Prime" ? 5025000 : 20000 // Assuming this should be a different property
+        });
+      }
+    }
+  }, [isSuccess]);
+
   if (state.fullName && state.email && state.regId) {
     filled = true;
   }
-  // const PaystackProps = {
-  //   email: state.email,
-  //   amount: Number(state.reservation),
-  //   metadata: {
-  //     name: state.name,
-  //     phone: state.number,
-  //   },
-  //   publicKey: pk,
-  //   text: "Pay Now",
-  //   // onSuccess: () => createInfo(),
-  //   onSuccess: () => handleAlert(),
-  //   onClose: () => handlePaymentErrorAlert(),
-  // };
 
   const config = {
     metdata: {
@@ -55,11 +60,10 @@ const Payment = () => {
       regId: state.regId,
     },
     email: state.email,
-    amount: 1025000,
+    amount: state.amount,
     publicKey: pk,
   };
 
-  const MySwal = withReactContent(Swal);
   const handlePaymentErrorAlert = () => {
     Swal.fire({
       title: "Error",
@@ -72,20 +76,12 @@ const Payment = () => {
       },
     });
   };
-  const handleFormErrorAlert = () => {
-    Swal.fire({
-      title: "Error",
-      text: "Form Not Submited",
-      showClass: {
-        popup: "animate__animated animate__fadeInDown",
-      },
-      hideClass: {
-        popup: "animate__animated animate__fadeOutUp",
-      },
-    });
-  };
+  
+  
   const onSuccess = (reference) => {
-    createInfo();
+    const registration = data?.data?.data;
+
+    mutate({ cohort: new Date().getFullYear().toString(), track: registration.track, amount: registration.track === "KCCA Prime" ? 5025000 : 20000 })
   };
 
   const onClose = () => {
@@ -121,44 +117,6 @@ const Payment = () => {
       },
     });
   };
-  const handleChange = (evt) => {
-    const value =
-      evt.target.type === "checkbox" ? evt.target.checked : evt.target.value;
-    setState({
-      ...state,
-      [evt.target.name]: value,
-    });
-  };
-  // if (state.mode === "Virtual") {
-  //   setTicket(state.reservation);
-  // }
-
-  const createInfo = async () => {
-    let myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    let response = await fetch(`${url}payment`, {
-      method: "post",
-      headers: myHeaders,
-      body: JSON.stringify({
-        fullName: state.fullName,
-        emailAddress: state.email,
-        regId: state.regId,
-        amount: state.amount,
-      }),
-    });
-    if (response.status === 400) handleFormErrorAlert();
-    else {
-      setState("");
-      Array.from(document.querySelectorAll("input")).forEach(
-        (input) => (input.value = "")
-      );
-      handleAlert();
-    }
-  };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    createInfo();
-  };
 
   return isLoading || !registrationId ? "Loading" : (
     <>
@@ -180,39 +138,19 @@ const Payment = () => {
             <div className="form-inp mt-[24px] md:w-[616px]">
               <p className="">Track</p>
               <h3 className="font-[400] text-[20px]  md:text-[24px]">
-              {data?.data?.data?.track}
+                {data?.data?.data?.track}
               </h3>
             </div>
             <div className="form-inp mt-[24px] md:w-[616px]">
               <p>Email Address</p>
               <h3 className="font-[400] text-[20px]  md:text-[24px]">
-              {data?.data?.data?.emailAddress}
+                {data?.data?.data?.emailAddress}
               </h3>
             </div>
           </div>
           <div className="w-4/5 md:w-[332px] mx-auto md:mx-0">
-            {filled ? (
-              <PaystackHookExample />
-            ) : (
-              <button
-                onClick={handleSubmit}
-                type="submit"
-                className="h-[48px] font-[600] text-[16px] md:text-[24px] text-white w-full bg-green-500 hover:bg-primary mt-[36px] rounded-md"
-              >
-                Pay Now
-              </button>
-            )}
+            <PaystackHookExample />
           </div>
-          {/* <div className='flex flex-col justify-center items-center mt-[70px]'>
-						<MdArrowDownward
-							size={40}
-							className='animate-bounce text-primary'
-						/>
-						<h3 className='text-italic font-bold text-xl md:text-2xl text-center'>
-							To get a Table of Ten kindly contact +2348131983791,
-							or +2347013411186
-						</h3>
-					</div> */}
         </div>
       </Animation>
       <div className="relative">

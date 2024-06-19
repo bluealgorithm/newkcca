@@ -63,6 +63,7 @@ export interface RegistrationData {
 export interface PaymentData {
   cohort: string;
   track: string;
+  amount: string;
 }
 
 
