@@ -7,16 +7,12 @@ const apiService = API.getInstance();
 
 // Hook for creating a new application
 export function useCreateApplication() {
-  const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: (applicationData: ApplicationData) => apiService.createApplication(applicationData),
   });
 }
 // Hook for creating a new registration
 export function useCreateRegistration() {
-  const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: (registrationData: RegistrationData) => apiService.createRegistration(registrationData),
   });

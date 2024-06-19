@@ -1,52 +1,17 @@
-"use client"; // Ensure this is at the very top
+"use client";
 
-import React, { useState, useEffect } from "react";
-import Swal from "sweetalert2";
-import "animate.css";
-import { useRouter } from "next/router";
-import Select from "react-select";
+import React from "react";
+import { FieldValues, useForm } from "react-hook-form";
 import { z } from "zod";
-import { useForm, Resolver, FieldValues } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Toaster, toast } from "sonner";
 import Nav from "../../../components/Nav";
-import WhatsappButton from "../../../components/WhatsappButton";
-import Footer from "../../../components/Footer";
-import {
-  useCreateRegistration,
-  useCreateApplication,
-  useGetApplication,
-  useGetRegistrations,
-  useGetApplications,
-  useGetPayment,
-  useGetPayments,
-} from "../hooks/useApi";
-import { RegistrationData } from "../types/types";
-
-const API_URL = "https://restfulcountries.com/api/v1/countries";
-const BEARER_TOKEN = process.env.NEXT_PUBLIC_COUNTRY_FETCH_TOKEN;
-
-interface RegistrationFormData extends RegistrationData {
-  emailAddress: string;
-  age: string;
-  currentGrade: string;
-  hasCodingExperience: string;
-  programmingLanguages: string[];
-  otherLanguage: string;
-  completedCodingCourse: string;
-  completedPaidCourse: string;
-  comfortableWithCode: string;
-  programInterest: string;
-  interestReason: string;
-  careerGoals: string;
-  financialBackground: string;
-  additionalOfferings: string;
-  additionalOfferingsImportance: string;
-}
+import { Toaster } from "sonner";
+import { useCreateApplication } from "../hooks/useApi";
+import { AdditionalOfferings, ApplicationData, Experience, FinancialBackground, GeneralInformation, Interests } from "../types/types";
 
 const formSchema = z.object({
   emailAddress: z.string().email("Enter a Valid Email Address"),
-  aage: z
+  age: z
     .string()
     .optional()
     .refine(
@@ -58,24 +23,16 @@ const formSchema = z.object({
   hasCodingExperience: z.string().min(1, "Please select an option"),
   programmingLanguages: z
     .array(z.string())
-    .optional()
-    .refine(
-      (arr) => arr !== undefined && arr.length > 0,
-      "Please select at least one programming language"
-    ),
+    .optional(),
   otherLanguage: z.string().optional(),
-  completedCodingCourse: z.string().min(1, "Please select an option"),
+  completedCodingCourse: z.string().min(1, "Please select an option").optional(),
   completedPaidCourse: z
     .string()
-    .optional()
-    .refine(
-      (val) => val === "" || val === "yes" || val === "no",
-      "Invalid value for Paid Course"
-    ),
+    .optional(),
   comfortableWithCode: z
     .string()
     .optional()
-    .refine((val) => val !== "", "Please select an option"),
+    .refine((val) => val !== "", "Please select an option").optional(),
   currentGrade: z.string().min(1, "Current Grade is required"),
   programInterest: z
     .string()
@@ -99,90 +56,72 @@ const formSchema = z.object({
 
 const resolver = zodResolver(formSchema);
 
-const RegistrationForm: React.FC = () => {
-  const {
-    mutate: createRegistration,
-    isPending,
-    isError,
-  } = useCreateRegistration();
-
-  const [formData, setFormData] = useState<RegistrationFormData>({
-    emailAddress: "",
-    age: "",
-    currentGrade: "",
-    hasCodingExperience: "",
-    programmingLanguages: [],
-    otherLanguage: "",
-    completedCodingCourse: "",
-    completedPaidCourse: "",
-    comfortableWithCode: "",
-    programInterest: "",
-    interestReason: "",
-    careerGoals: "",
-    financialBackground: "",
-    additionalOfferings: "",
-    additionalOfferingsImportance: "",
-    // Add other fields from RegistrationData as needed
-    firstName: "",
-    lastName: "",
-    city: "",
-    address: "",
-    cohort: "",
-    isInSchool: false,
-    isBoarding: false,
-    school: "",
-    schoolAddress: "",
-    parentName: "",
-    phoneNumber: "",
-    state: "",
-    country: "",
-    gender: "",
-  });
-
+const RegistrationForm = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
-  } = useForm({
-    resolver,
-  });
+  } = useForm({ resolver });
+  const { mutate, isPending } = useCreateApplication();
 
-  const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
-  ) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+  const hasCodingExperience = watch("hasCodingExperience");
 
-  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, checked, value } = e.target;
-    const currentValues = formData.programmingLanguages;
-    if (checked) {
-      setFormData({ ...formData, [name]: [...currentValues, value] });
-    } else {
-      setFormData({
-        ...formData,
-        [name]: currentValues.filter((item) => item !== value),
-      });
-    }
-  };
+  const onSubmit = (data: FieldValues) => {
+    const {
+      emailAddress,
+      age,
+      hasCodingExperience,
+      programmingLanguages,
+      completedCodingCourse,
+      completedPaidCourse,
+      comfortableWithCode,
+      currentGrade,
+      programInterest,
+      interestReason,
+      careerGoals,
+      financialBackground: financialBackgroundStr,
+      additionalOfferings: additionalOfferingsStr,
+      additionalOfferingsImportance,
+    } = data;
 
-  const onFormSubmit = (data: FieldValues) => {
-    const formData = data as RegistrationFormData;
-    console.log(formData);
-    // Add your form submission logic here
-    createRegistration(formData, {
-      onSuccess: (response) => {
-        console.log("Registration Successful:", response);
-        // Handle success case (e.g., show a success message, reset the form, etc.)
-      },
-      onError: (error) => {
-        console.error("Registration Failed:", error);
-        // Handle error case (e.g., show an error message)
-      },
-    });
+    const generalInformation: GeneralInformation = {
+      emailAddress,
+      age: Number(age),
+      grade: currentGrade,
+    };
+
+    const experience: Experience = {
+      hasCodingExperience: hasCodingExperience === "true",
+      programmingLanguages: programmingLanguages || [],
+      hasCompletedCodingProgram: completedCodingCourse === "true",
+      programWasPaid: completedPaidCourse === "true",
+      canWriteOrUnderstandCode: comfortableWithCode === "true",
+    };
+
+    const interests: Interests = {
+      programInterest,
+      whyInterestedInCoding: interestReason,
+      careerGoals,
+    };
+
+    const financialBackground: FinancialBackground = {
+      hasChallengePayingForProgram: financialBackgroundStr === "true",
+    };
+
+    const additionalOfferingsData: AdditionalOfferings = {
+      importanceOfAdditionalOfferings: additionalOfferingsImportance,
+    };
+
+    const applicationData: ApplicationData = {
+      generalInformation,
+      experience,
+      interests,
+      financialBackground,
+      additionalOfferings: additionalOfferingsData,
+    };
+
+    mutate(applicationData);
   };
 
   return (
@@ -199,7 +138,8 @@ const RegistrationForm: React.FC = () => {
         <h1 className="text-2xl font-bold mb-8 text-center">
           Registration Questionnaire
         </h1>
-        <form onSubmit={handleSubmit(onFormSubmit)}>
+
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-4">
             <h2 className="text-2xl font-bold mb-6">General Information</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -214,8 +154,6 @@ const RegistrationForm: React.FC = () => {
                   type="email"
                   id="emailAddress"
                   {...register("emailAddress")}
-                  value={formData.emailAddress}
-                  onChange={handleChange}
                   className={`w-full px-3 py-2 border ${
                     errors.emailAddress ? "border-red-500" : "border-gray-300"
                   } rounded focus:outline-none focus:ring-1 focus:ring-[#63CA97]`}
@@ -235,12 +173,10 @@ const RegistrationForm: React.FC = () => {
                   type="number"
                   id="age"
                   {...register("age")}
-                  value={formData.age}
-                  onChange={handleChange}
                   min={9}
                   max={16}
                   maxLength={2}
-                  pattern="\d{1,2}" // Allow only 1 or 2 digits
+                  pattern="\d{1,2}"
                   className={`w-full px-3 py-2 border ${
                     errors.age ? "border-red-500" : "border-gray-300"
                   } rounded focus:outline-none focus:ring-1 focus:ring-[#63CA97]`}
@@ -264,10 +200,8 @@ const RegistrationForm: React.FC = () => {
                 <input
                   type="radio"
                   id="hasCodingExperienceYes"
-                  name="hasCodingExperience"
                   value="yes"
-                  checked={formData.hasCodingExperience === "yes"}
-                  onChange={handleChange}
+                  {...register("hasCodingExperience")}
                   className="mr-2"
                 />
                 <label htmlFor="hasCodingExperienceYes" className="mr-4">
@@ -276,17 +210,20 @@ const RegistrationForm: React.FC = () => {
                 <input
                   type="radio"
                   id="hasCodingExperienceNo"
-                  name="hasCodingExperience"
                   value="no"
-                  checked={formData.hasCodingExperience === "no"}
-                  onChange={handleChange}
+                  {...register("hasCodingExperience")}
                   className="mr-2"
                 />
                 <label htmlFor="hasCodingExperienceNo">No</label>
               </div>
+              {errors.hasCodingExperience && (
+                <span className="text-red-500">
+                  {errors.hasCodingExperience.message?.toString()}
+                </span>
+              )}
             </div>
 
-            {formData.hasCodingExperience === "yes" && (
+            {hasCodingExperience === "yes" && (
               <>
                 <div className="mb-4">
                   <label className="mb-2 block font-semibold">
@@ -306,35 +243,18 @@ const RegistrationForm: React.FC = () => {
                         <input
                           type="checkbox"
                           id={language}
-                          name="programmingLanguages"
                           value={language}
-                          checked={formData.programmingLanguages.includes(
-                            language
-                          )}
-                          onChange={handleCheckboxChange}
+                          {...register("programmingLanguages")}
                           className="mr-2"
                         />
                         <label htmlFor={language}>{language}</label>
                       </div>
                     ))}
                   </div>
-                  {formData.programmingLanguages.includes("Other") && (
-                    <div className="mt-2">
-                      <label
-                        htmlFor="otherLanguage"
-                        className="mb-2 block font-semibold"
-                      >
-                        Please specify:
-                      </label>
-                      <input
-                        type="text"
-                        id="otherLanguage"
-                        name="otherLanguage"
-                        value={formData.otherLanguage || ""}
-                        onChange={handleChange}
-                        className="w-full px-3 py-2 border border-gray-300 rounded"
-                      />
-                    </div>
+                  {errors.programmingLanguages && (
+                    <span className="text-red-500">
+                      {errors.programmingLanguages.message?.toString()}
+                    </span>
                   )}
                 </div>
 
@@ -346,10 +266,8 @@ const RegistrationForm: React.FC = () => {
                     <input
                       type="radio"
                       id="completedCodingCourseYes"
-                      name="completedCodingCourse"
                       value="yes"
-                      checked={formData.completedCodingCourse === "yes"}
-                      onChange={handleChange}
+                      {...register("completedCodingCourse")}
                       className="mr-2"
                     />
                     <label htmlFor="completedCodingCourseYes" className="mr-4">
@@ -358,14 +276,17 @@ const RegistrationForm: React.FC = () => {
                     <input
                       type="radio"
                       id="completedCodingCourseNo"
-                      name="completedCodingCourse"
                       value="no"
-                      checked={formData.completedCodingCourse === "no"}
-                      onChange={handleChange}
+                      {...register("completedCodingCourse")}
                       className="mr-2"
                     />
                     <label htmlFor="completedCodingCourseNo">No</label>
                   </div>
+                  {errors.completedCodingCourse && (
+                    <span className="text-red-500">
+                      {errors.completedCodingCourse.message?.toString()}
+                    </span>
+                  )}
                 </div>
 
                 <div className="mb-4">
@@ -376,10 +297,8 @@ const RegistrationForm: React.FC = () => {
                     <input
                       type="radio"
                       id="completedPaidCourseYes"
-                      name="completedPaidCourse"
                       value="yes"
-                      checked={formData.completedPaidCourse === "yes"}
-                      onChange={handleChange}
+                      {...register("completedPaidCourse")}
                       className="mr-2"
                     />
                     <label htmlFor="completedPaidCourseYes" className="mr-4">
@@ -388,14 +307,17 @@ const RegistrationForm: React.FC = () => {
                     <input
                       type="radio"
                       id="completedPaidCourseNo"
-                      name="completedPaidCourse"
                       value="no"
-                      checked={formData.completedPaidCourse === "no"}
-                      onChange={handleChange}
+                      {...register("completedPaidCourse")}
                       className="mr-2"
                     />
                     <label htmlFor="completedPaidCourseNo">No</label>
                   </div>
+                  {errors.completedPaidCourse && (
+                    <span className="text-red-500">
+                      {errors.completedPaidCourse.message?.toString()}
+                    </span>
+                  )}
                 </div>
 
                 <div className="mb-4">
@@ -404,9 +326,7 @@ const RegistrationForm: React.FC = () => {
                   </label>
                   <select
                     id="comfortableWithCode"
-                    name="comfortableWithCode"
-                    value={formData.comfortableWithCode}
-                    onChange={handleChange}
+                    {...register("comfortableWithCode")}
                     className={`w-full px-3 py-2 border ${
                       errors.comfortableWithCode
                         ? "border-red-500"
@@ -418,6 +338,11 @@ const RegistrationForm: React.FC = () => {
                     <option value="intermediate">Intermediate</option>
                     <option value="advanced">Advanced</option>
                   </select>
+                  {errors.comfortableWithCode && (
+                    <span className="text-red-500">
+                      {errors.comfortableWithCode.message?.toString()}
+                    </span>
+                  )}
                 </div>
               </>
             )}
@@ -436,8 +361,6 @@ const RegistrationForm: React.FC = () => {
                 type="text"
                 id="currentGrade"
                 {...register("currentGrade")}
-                value={formData.currentGrade}
-                onChange={handleChange}
                 className={`w-full px-3 py-2 border ${
                   errors.currentGrade ? "border-red-500" : "border-gray-300"
                 } rounded focus:outline-none focus:ring-1 focus:ring-[#63CA97]`}
@@ -449,7 +372,6 @@ const RegistrationForm: React.FC = () => {
               )}
             </div>
           </div>
-
           <div className="mb-4">
             <h2 className="text-2xl font-bold mb-6">Program Interests</h2>
             <div className="mb-4">
@@ -462,9 +384,7 @@ const RegistrationForm: React.FC = () => {
               </label>
               <select
                 id="programInterest"
-                name="programInterest"
-                value={formData.programInterest}
-                onChange={handleChange}
+                {...register("programInterest")}
                 className={`w-full px-3 py-2 border ${
                   errors.programInterest ? "border-red-500" : "border-gray-300"
                 } rounded`}
@@ -488,7 +408,6 @@ const RegistrationForm: React.FC = () => {
                 </span>
               )}
             </div>
-
             <div className="mb-4">
               <label
                 htmlFor="interestReason"
@@ -500,8 +419,6 @@ const RegistrationForm: React.FC = () => {
               <textarea
                 id="interestReason"
                 {...register("interestReason")}
-                value={formData.interestReason}
-                onChange={handleChange}
                 rows={4}
                 className={`w-full px-3 py-2 border ${
                   errors.interestReason ? "border-red-500" : "border-gray-300"
@@ -522,8 +439,6 @@ const RegistrationForm: React.FC = () => {
               <textarea
                 id="careerGoals"
                 {...register("careerGoals")}
-                value={formData.careerGoals}
-                onChange={handleChange}
                 rows={4}
                 className={`w-full px-3 py-2 border ${
                   errors.careerGoals ? "border-red-500" : "border-gray-300"
@@ -536,7 +451,6 @@ const RegistrationForm: React.FC = () => {
               )}
             </div>
           </div>
-
           <div className="mb-4">
             <h2 className="text-2xl font-bold mb-6">Additional Information</h2>
             <div className="mb-4">
@@ -553,10 +467,8 @@ const RegistrationForm: React.FC = () => {
                 <input
                   type="radio"
                   id="financialBackgroundLow"
-                  name="financialBackground"
                   value="low"
-                  checked={formData.financialBackground === "low"}
-                  onChange={handleChange}
+                  {...register("financialBackground")}
                   className="mr-2"
                 />
                 <label htmlFor="financialBackgroundLow" className="mr-4">
@@ -565,10 +477,8 @@ const RegistrationForm: React.FC = () => {
                 <input
                   type="radio"
                   id="financialBackgroundMedium"
-                  name="financialBackground"
                   value="medium"
-                  checked={formData.financialBackground === "medium"}
-                  onChange={handleChange}
+                  {...register("financialBackground")}
                   className="mr-2"
                 />
                 <label htmlFor="financialBackgroundMedium" className="mr-4">
@@ -577,16 +487,18 @@ const RegistrationForm: React.FC = () => {
                 <input
                   type="radio"
                   id="financialBackgroundHigh"
-                  name="financialBackground"
                   value="high"
-                  checked={formData.financialBackground === "high"}
-                  onChange={handleChange}
+                  {...register("financialBackground")}
                   className="mr-2"
                 />
                 <label htmlFor="financialBackgroundHigh">High</label>
               </div>
+              {errors.financialBackground && (
+                <span className="text-red-500">
+                  {errors.financialBackground.message?.toString()}
+                </span>
+              )}
             </div>
-
             <div className="mb-4">
               <label
                 htmlFor="additionalOfferings"
@@ -597,9 +509,7 @@ const RegistrationForm: React.FC = () => {
               </label>
               <select
                 id="additionalOfferings"
-                name="additionalOfferings"
-                value={formData.additionalOfferings}
-                onChange={handleChange}
+                {...register("additionalOfferings")}
                 className={`w-full px-3 py-2 border ${
                   errors.additionalOfferings
                     ? "border-red-500"
@@ -633,9 +543,7 @@ const RegistrationForm: React.FC = () => {
               </p>
               <select
                 id="additionalOfferingsImportance"
-                name="additionalOfferingsImportance"
-                value={formData.additionalOfferingsImportance}
-                onChange={handleChange}
+                {...register("additionalOfferingsImportance")}
                 className={`w-full px-3 py-2 border ${
                   errors.additionalOfferingsImportance
                     ? "border-red-500"
@@ -643,9 +551,9 @@ const RegistrationForm: React.FC = () => {
                 } rounded`}
               >
                 <option value="">Select...</option>
-                <option value="notAFactor">Not a Factor</option>
-                <option value="somewhatImportant">Somewhat Important</option>
-                <option value="veryImportant">Very Important</option>
+                <option value="Not a Factor">Not a Factor</option>
+                <option value="Somewhat Important">Somewhat Important</option>
+                <option value="Very Important">Very Important</option>
               </select>
               {errors.additionalOfferingsImportance && (
                 <span className="text-red-500">
@@ -654,7 +562,6 @@ const RegistrationForm: React.FC = () => {
               )}
             </div>
           </div>
-
           <div className="text-center mt-8">
             <button
               type="submit"
@@ -665,8 +572,6 @@ const RegistrationForm: React.FC = () => {
           </div>
         </form>
       </div>
-      <WhatsappButton />
-      <Footer />
     </>
   );
 };

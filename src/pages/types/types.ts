@@ -1,6 +1,6 @@
 export interface GeneralInformation {
   emailAddress: string;
-  age: string;
+  age: number;
   grade: string;
 }
 

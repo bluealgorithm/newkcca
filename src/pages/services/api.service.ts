@@ -2,7 +2,7 @@ import axios from "axios";
 import { ApplicationData, RegistrationData, PaymentData } from "../types/types";
 
 class API {
-  private static baseURL = process.env.BASE_URL;
+  private static baseURL = process.env.NEXT_PUBLIC_BASE_URL;
   private static instance: API;
 
   private constructor() { }
@@ -16,6 +16,7 @@ class API {
 
   async createApplication(applicationData: ApplicationData) {
     const apply = await axios.post(`${API.baseURL}/apply`, applicationData);
+    
     return apply;
   }
 
