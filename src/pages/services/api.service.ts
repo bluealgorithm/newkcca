@@ -21,7 +21,9 @@ class API {
   }
 
   async createRegistration(registrationData: RegistrationData) {
-    const register = await axios.post(`${API.baseURL}/register`, registrationData);
+    const { id, ...restOfData } = registrationData;
+
+    const register = await axios.post(`${API.baseURL}/registration/${registrationData.id}`, { ...restOfData });
     return register;
   }
 

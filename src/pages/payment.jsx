@@ -161,27 +161,28 @@ const Payment = () => {
 			<Animation>
 				<div className='p-[20px] md:p-[60px] md:px-[80px]'>
 					<h2 className='md:max-w-[1164px] font-[600] text-[20px] md:text-[40px]'>
-						Pay A Club Fee of 8 Million Naira
+						Hello, Full Name
 					</h2>
+					<p className='mt-2 mb-1 text-lg'>Pay 10,000 below to complete your KCCA Registration in the {new Date().getFullYear().toString()} Cohort</p>
 					<div className='w-[96px] h-[5px] mt-[8px] mb-[32px] bg-primary'></div>
 						<div className='md:flex md:gap-[122px]'>
 							<div className='form-inp mt-[24px] md:w-[616px]'>
+								<p className=''>Full Name</p>
 								<h3
 									htmlFor='fullName'
 									className='font-[400] text-[20px]  md:text-[24px]'
 								>
-									Full Name
+									Akachukwu Egboluche
 								</h3>
-								<p className=''>Akachukwu Egboluche</p>
 							</div>
 							<div className='form-inp mt-[24px] md:w-[616px]'>
+								<p>Email Address</p>
 								<h3
 									htmlFor='email'
 									className='font-[400] text-[20px]  md:text-[24px]'
 								>
-									Email Address{' '}
+									egbolucheakachukwu@gmail.com
 								</h3>
-								<p>egbolucheakachukwu@gmail.com</p>
 							</div>
 						</div>
 						<div className='w-4/5 md:w-[332px] mx-auto md:mx-0'>

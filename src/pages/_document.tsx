@@ -14,6 +14,7 @@ export default function Document() {
           href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap"
           rel="stylesheet"
         />
+        <title>Kids Code Club Africa</title>
       </Head>
       <body>
         <Main />

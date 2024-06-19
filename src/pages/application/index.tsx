@@ -139,7 +139,7 @@ const RegistrationForm = () => {
           Registration Questionnaire
         </h1>
 
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form className="space-y-2" onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-4">
             <h2 className="text-2xl font-bold mb-6">General Information</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

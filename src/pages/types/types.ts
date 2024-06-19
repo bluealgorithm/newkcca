@@ -41,14 +41,15 @@ export interface ApplicationData {
 
 
 export interface RegistrationData {
+  id: string;
   firstName: string;
   lastName: string;
   city: string;
   address: string;
   cohort: string;
   age: string;
-  isInSchool: boolean;
   isBoarding: boolean;
+  isInSchool: boolean;
   school: string;
   schoolAddress: string;
   parentName: string;
@@ -66,6 +67,7 @@ export interface PaymentData {
 
 
 export interface RegistrationFormData {
+  id: string;
   emailAddress: string;
   age: string;
   currentGrade: string;
