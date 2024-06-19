@@ -58,6 +58,20 @@ export function useGetRegistrations() {
   });
 }
 
+export function useGetRegistration(id: string) {
+  return useQuery({
+    queryKey: ["registration", id],
+    queryFn: () => apiService.getRegistration(id),
+    gcTime: Infinity,
+    staleTime: Infinity,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    refetchOnMount: false,
+    enabled: !!id
+  });
+}
+
+
 export function useGetPayment(id: string) {
   return useQuery({
     queryKey: ["payment", id],

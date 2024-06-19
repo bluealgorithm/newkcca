@@ -43,12 +43,12 @@ class API {
   }
 
   async getRegistration(id: string) {
-    const registration = await axios.get(`${API.baseURL}/register/${id}`);
+    const registration = await axios.get(`${API.baseURL}/registration/${id}`);
     return registration;
   }
 
   async getRegistrations() {
-    const registrations = await axios.get(`${API.baseURL}/register`);
+    const registrations = await axios.get(`${API.baseURL}/registration`);
     return registrations;
   }
 
