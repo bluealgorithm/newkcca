@@ -133,12 +133,20 @@ const RegistrationForm = () => {
 
     mutate(applicationData, {
       onSuccess: () => {
-        toast.success("Application Submitted Successfully, Check Your Email!");
+        toast.success("Application Submitted Successfully, Check Your Email!", {
+          style: { background: "green", color: "white" },
+          className: "my-toast",
+          duration: 4000,
+        });
         router.push("/");
       },
       onError: (error) => {
         console.error("Error submitting application:", error);
-        toast.error("An error occurred while submitting the application.");
+        toast.error("An error occurred while submitting the application.", {
+          style: { background: "red", color: "white" },
+          className: "my-toast",
+          duration: 4000,
+        });
       },
     });
   };
@@ -150,7 +158,6 @@ const RegistrationForm = () => {
       <Nav />
       <Toaster
         toastOptions={{
-          style: { background: "green", color: "white" },
           className: "my-toast",
           duration: 4000,
         }}
@@ -589,7 +596,7 @@ const RegistrationForm = () => {
               type="submit"
               className="px-6 py-3 bg-[#63CA97] text-white font-semibold rounded-md focus:outline-none hover:bg-[#579d7e] transition-colors duration-300"
             >
-              Submit
+              Apply Now
             </button>
           </div>
         </form>
