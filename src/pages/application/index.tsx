@@ -84,18 +84,21 @@ const formSchema = z.object({
 const resolver = zodResolver(formSchema);
 
 const RegistrationForm = () => {
+  const [submitError, setSubmitError] = React.useState<string | null>(null);
   const router = useRouter();
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
+    reset,
   } = useForm({ resolver });
   const { mutate, isPending } = useCreateApplication();
 
   const hasCodingExperience = watch("hasCodingExperience");
 
   const onSubmit = (data: FieldValues) => {
+    setSubmitError(null);
     const {
       emailAddress,
       age,
@@ -154,17 +157,21 @@ const RegistrationForm = () => {
         toast.success("Application Submitted Successfully, Check Your Email!", {
           style: { background: "green", color: "white" },
           className: "my-toast",
-          duration: 3000,
+          duration: 6000,
         });
-        router.push("/");
+        reset();
       },
       onError: (error) => {
         console.error("Error submitting application:", error);
-        toast.error("An error occurred while submitting the application.", {
-          style: { background: "red", color: "white" },
-          className: "my-toast",
-          duration: 3000,
-        });
+        toast.error(
+          "Error Occurred While Submitting Application or Duplicate Details.",
+          {
+            style: { background: "red", color: "white" },
+            className: "my-toast",
+            duration: 6000,
+          }
+        );
+        reset();
       },
     });
   };
@@ -613,8 +620,12 @@ const RegistrationForm = () => {
             <button
               type="submit"
               disabled={isPending}
-              className={`px-6 py-3 bg-[#63CA97] text-white font-semibold rounded-md focus:outline-none hover:bg-[#579d7e] transition-colors duration-300 flex items-center justify-center ${
-                isPending ? "opacity-50 cursor-not-allowed" : ""
+              className={`px-6 py-3 text-white font-semibold rounded-md focus:outline-none transition-colors duration-300 flex items-center justify-center ${
+                isPending
+                  ? "bg-[#63CA97] opacity-50 cursor-not-allowed"
+                  : submitError
+                  ? "bg-red-500 hover:bg-red-600"
+                  : "bg-[#63CA97] hover:bg-[#579d7e]"
               }`}
             >
               {isPending ? (
@@ -622,6 +633,8 @@ const RegistrationForm = () => {
                   <Spinner />
                   Submitting...
                 </>
+              ) : submitError ? (
+                "Try Again"
               ) : (
                 "Apply Now"
               )}
