@@ -2,16 +2,14 @@ import React, { useState } from "react";
 import Footer from "../../../components/Footer";
 import Nav from "../../../components/Nav";
 import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
 import "animate.css";
-import { url } from "../../../url";
 import Animation from "../../../components/Animation";
-// import Modal from '../components/Modal';
 import { usePaystackPayment } from "react-paystack";
 import WhatsappButton from "../../../components/WhatsappButton";
 import { useGetRegistration } from "../hooks/useApi";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import axios from 'axios';
 
 const pk = process.env.NEXT_PUBLIC_PAYSTACK_KEY;
 const Payment = () => {

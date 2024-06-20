@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import "animate.css";
 import { useRouter } from "next/router";
-import Swal from "sweetalert2";
 import Nav from "../../../components/Nav";
 import WhatsappButton from "../../../components/WhatsappButton";
 import Footer from "../../../components/Footer";
