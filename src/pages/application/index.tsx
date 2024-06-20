@@ -6,7 +6,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Nav from "../../../components/Nav";
 import { Toaster } from "sonner";
-import { useCreateApplication } from "../hooks/useApi";
+import { useCreateApplication } from "../../hooks/useApi";
 import { AdditionalOfferings, ApplicationData, Experience, FinancialBackground, GeneralInformation, Interests } from "../types/types";
 
 const formSchema = z.object({

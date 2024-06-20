@@ -6,7 +6,7 @@ import "animate.css";
 import Animation from "../../../components/Animation";
 import { usePaystackPayment } from "react-paystack";
 import WhatsappButton from "../../../components/WhatsappButton";
-import { useCreatePayment, useGetRegistration } from "../hooks/useApi";
+import { useCreatePayment, useGetRegistration } from "../../hooks/useApi";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { Toaster, toast } from "sonner";

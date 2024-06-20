@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import Nav from "../../../components/Nav";
 import WhatsappButton from "../../../components/WhatsappButton";
 import Footer from "../../../components/Footer";
-import { useCreateRegistration, useGetApplication } from "../hooks/useApi";
+import { useCreateRegistration, useGetApplication } from "../../hooks/useApi";
 
 const Registration = () => {
   const router = useRouter();
