@@ -6,6 +6,25 @@ import Nav from "../../../components/Nav";
 import WhatsappButton from "../../../components/WhatsappButton";
 import Footer from "../../../components/Footer";
 import { useCreateRegistration, useGetApplication } from "../../hooks/useApi";
+import { Toaster, toast } from "sonner";
+
+const Spinner = () => (
+  <svg className="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24">
+    <circle
+      className="opacity-25"
+      cx="12"
+      cy="12"
+      r="10"
+      stroke="currentColor"
+      strokeWidth="4"
+    ></circle>
+    <path
+      className="opacity-75"
+      fill="currentColor"
+      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+    ></path>
+  </svg>
+);
 
 const Registration = () => {
   const router = useRouter();
@@ -16,7 +35,7 @@ const Registration = () => {
   );
   const { mutate, isPending } = useCreateRegistration();
 
-  const { register, handleSubmit, setValue } = useForm({
+  const { register, handleSubmit, setValue, reset } = useForm({
     defaultValues: {
       firstName: "",
       lastName: "",
@@ -33,7 +52,7 @@ const Registration = () => {
       parentName: "",
       email: "",
       phoneNumber: "",
-      isInSchool: ""
+      isInSchool: "",
     },
   });
 
@@ -46,6 +65,7 @@ const Registration = () => {
         "email",
         applicationInfo?.data.generalInformation.emailAddress || ""
       );
+      reset();
     }
   }, [data, isSuccess, setValue]);
 
@@ -61,30 +81,61 @@ const Registration = () => {
   }, []);
 
   const onSubmit = (data: FieldValues) => {
-    mutate({
-      id: applicationId as string, // Include the id property here
-      address: data.address,
-      age: data.age,
-      city: data.city,
-      cohort: new Date().getFullYear().toString(),
-      country: data.country,
-      emailAddress: data.email,
-      firstName: data.firstName,
-      gender: data.gender,
-      isBoarding: data.isBoarding === "yes",
-      isInSchool: data.isInSchool === "yes",
-      lastName: data.lastName,
-      parentName: data.parentName,
-      phoneNumber: data.phoneNumber,
-      school: data.school,
-      schoolAddress: data.schoolAddress,
-      state: data.state,
-    });
+    mutate(
+      {
+        id: applicationId as string,
+        address: data.address,
+        age: data.age,
+        city: data.city,
+        cohort: new Date().getFullYear().toString(),
+        country: data.country,
+        emailAddress: data.email,
+        firstName: data.firstName,
+        gender: data.gender,
+        isBoarding: data.isBoarding === "yes",
+        isInSchool: data.isInSchool === "yes",
+        lastName: data.lastName,
+        parentName: data.parentName,
+        phoneNumber: data.phoneNumber,
+        school: data.school,
+        schoolAddress: data.schoolAddress,
+        state: data.state,
+      },
+      {
+        onSuccess: () => {
+          toast.success("Registration Submitted Successfully!", {
+            style: { background: "green", color: "white" },
+            className: "my-toast",
+            duration: 5000,
+          });
+          reset();
+        },
+        onError: (error) => {
+          console.error("Error submitting registration:", error);
+          toast.error(
+            "Error Occurred While Registering or Duplicate Details.",
+            {
+              style: { background: "red", color: "white" },
+              className: "my-toast",
+              duration: 5000,
+            }
+          );
+          reset();
+        },
+      }
+    );
   };
 
   return (
     <>
       <Nav />
+      <Toaster
+        toastOptions={{
+          className: "my-toast",
+          duration: 4000,
+        }}
+        position="top-center"
+      />
       <div className=" bg-white pb-[40px] md:pb-[160px] text-black">
         <section className="w-[90%] md:w-[1104px] mt-[30px] md:mt-[72px] p-[10px] md:p-[40px] mx-auto flex flex-col gap-[15px] md:gap-[40px] justify-center border border-primary pb-4">
           <h3 className="font-[500] font-montserrat text-[24px] leading-[32px] text-black text-center">
@@ -420,11 +471,21 @@ const Registration = () => {
             </div>
 
             <div className="flex justify-center mt-[32px]">
-              <button
+            <button
                 type="submit"
-                className="bg-primary w-[188px] h-[48px] rounded-[8px] text-white font-montserrat font-[500] text-[16px] leading-[24px]"
+                disabled={isPending}
+                className={`bg-primary w-[188px] h-[48px] rounded-[8px] text-white font-montserrat font-[500] text-[16px] leading-[24px] flex items-center justify-center ${
+                  isPending ? "opacity-50 cursor-not-allowed" : ""
+                }`}
               >
-                {isPending ? "Submitting..." : "Submit"}
+                {isPending ? (
+                  <>
+                    <Spinner />
+                    Submitting...
+                  </>
+                ) : (
+                  "Register"
+                )}
               </button>
             </div>
           </form>

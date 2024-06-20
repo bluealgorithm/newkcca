@@ -157,7 +157,7 @@ const RegistrationForm = () => {
         toast.success("Application Submitted Successfully, Check Your Email!", {
           style: { background: "green", color: "white" },
           className: "my-toast",
-          duration: 6000,
+          duration: 5000,
         });
         reset();
       },
@@ -168,7 +168,7 @@ const RegistrationForm = () => {
           {
             style: { background: "red", color: "white" },
             className: "my-toast",
-            duration: 6000,
+            duration: 5000,
           }
         );
         reset();
@@ -184,7 +184,7 @@ const RegistrationForm = () => {
       <Toaster
         toastOptions={{
           className: "my-toast",
-          duration: 4000,
+          duration: 5000,
         }}
         position="top-center"
       />
