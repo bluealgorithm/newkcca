@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import API from "../services/api.service";
-import { ApplicationData, RegistrationData } from "../types/types";
+import { ApplicationData, PaymentData, RegistrationData } from "../types/types";
 
 const apiService = API.getInstance();
 
@@ -71,6 +71,15 @@ export function useGetRegistration(id: string) {
   });
 }
 
+export function useCreatePayment() {
+  return useMutation({
+    mutationFn: async (paymentData: PaymentData) =>
+      await apiService.createPayment({ ...paymentData }),
+    onSuccess: () => {
+      location.href = "/registration";
+    },
+  });
+}
 
 export function useGetPayment(id: string) {
   return useQuery({

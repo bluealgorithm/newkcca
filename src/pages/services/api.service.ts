@@ -5,7 +5,7 @@ class API {
   private static baseURL = process.env.NEXT_PUBLIC_BASE_URL;
   private static instance: API;
 
-  private constructor() { }
+  private constructor() {}
 
   public static getInstance(): API {
     if (!API.instance) {
@@ -16,19 +16,26 @@ class API {
 
   async createApplication(applicationData: ApplicationData) {
     const apply = await axios.post(`${API.baseURL}/apply`, applicationData);
-    
+
     return apply;
   }
 
   async createRegistration(registrationData: RegistrationData) {
     const { id, ...restOfData } = registrationData;
 
-    const register = await axios.post(`${API.baseURL}/registration/${registrationData.id}`, { ...restOfData });
+    const register = await axios.post(
+      `${API.baseURL}/registration/${registrationData.id}`,
+      { ...restOfData }
+    );
     return register;
   }
 
   async createPayment(paymentData: PaymentData) {
-    const payment = await axios.post(`${API.baseURL}/payment`, paymentData);
+    const { id, ...restOfData } = paymentData;
+    const payment = await axios.post(
+      `${API.baseURL}/payment/${paymentData.id}`,
+      restOfData
+    );
     return payment;
   }
 

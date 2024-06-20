@@ -6,17 +6,17 @@ import "animate.css";
 import Animation from "../../../components/Animation";
 import { usePaystackPayment } from "react-paystack";
 import WhatsappButton from "../../../components/WhatsappButton";
-import { useGetRegistration } from "../hooks/useApi";
+import { useCreatePayment, useGetRegistration } from "../hooks/useApi";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import axios from 'axios';
+import { Toaster, toast } from "sonner";
 
 const pk = process.env.NEXT_PUBLIC_PAYSTACK_KEY;
 const Payment = () => {
   const router = useRouter();
   const registrationId = router.query.id
   const { data, isLoading, isSuccess } = useGetRegistration(registrationId);
-  const { mutate, isPending, isSuccess: submitted } = useGetRegistration(registrationId);
+  const { mutate, isPending, isSuccess: submitted } = useCreatePayment();
 
 
   React.useEffect(() => {
@@ -41,7 +41,7 @@ const Payment = () => {
           fullName: `${registration.firstName} ${registration.lastName}`,
           email: registration.emailAddress,
           id: registration._id,
-          amount: registration.track === "KCCA Prime" ? 5025000 : 20000 // Assuming this should be a different property
+          amount: registration.track === "KCCA Prime" ? (6025000 / 100).toString() : (20000 / 100).toString()
         });
       }
     }
@@ -52,6 +52,7 @@ const Payment = () => {
   }
 
   const config = {
+    reference: (new Date()).getTime().toString(),
     metdata: {
       name: state.fullName,
       email: state.email,
@@ -62,7 +63,7 @@ const Payment = () => {
     publicKey: pk,
   };
 
-  const handlePaymentErrorAlert = () => {
+  const handlePaymentErrorAlert = (message) => {
     Swal.fire({
       title: "Error",
       text: "Payment not successfull kindly try again",
@@ -73,17 +74,36 @@ const Payment = () => {
         popup: "animate__animated animate__fadeOutUp",
       },
     });
+    toast.error(message, {
+      duration: 3000,
+      position: 'top-center',
+      style: {
+        background: 'red',
+        color: 'white',
+      },
+    })
   };
-  
-  
+
+
   const onSuccess = (reference) => {
     const registration = data?.data?.data;
 
-    mutate({ cohort: new Date().getFullYear().toString(), track: registration.track, amount: registration.track === "KCCA Prime" ? 5025000 : 20000 })
+    try {
+      mutate({
+        id: registrationId,
+        cohort: new Date().getFullYear().toString(),
+        track: registration.track,
+        amount: registration.track === "KCCA Prime" ? (5025000 / 100).toString() : (20000 / 100).toString()
+      });
+
+    } catch (e) {
+      console.log(e);
+    }
+
   };
 
   const onClose = () => {
-    handlePaymentErrorAlert();
+    handlePaymentErrorAlert("Payment Already Exists");
   };
   // you can call this function anything
   const PaystackHookExample = () => {
@@ -118,6 +138,7 @@ const Payment = () => {
 
   return isLoading || !registrationId ? "Loading" : (
     <>
+      <Toaster />
       <Nav />
       <Animation>
         {/* Please do not waste your time complaining or tryint to resolve this. It just works
