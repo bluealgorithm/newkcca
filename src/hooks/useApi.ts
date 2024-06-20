@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import API from "../pages/services/api.service";
+import API from "../services/api.service";
 import { ApplicationData, PaymentData, RegistrationData } from "../pages/types/types";
 
 const apiService = API.getInstance();

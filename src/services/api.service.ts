@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ApplicationData, RegistrationData, PaymentData } from "../types/types";
+import { ApplicationData, RegistrationData, PaymentData } from "../pages/types/types";
 
 class API {
   private static baseURL = process.env.NEXT_PUBLIC_BASE_URL;
