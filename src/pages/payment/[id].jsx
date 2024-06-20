@@ -17,6 +17,7 @@ const Payment = () => {
   const registrationId = router.query.id
   const { data, isLoading, isSuccess } = useGetRegistration(registrationId);
   const { mutate, isPending, isSuccess: submitted } = useCreatePayment();
+  const [paymentExists, setPaymentExists] = useState(false)
 
 
   React.useEffect(() => {
@@ -45,7 +46,7 @@ const Payment = () => {
         });
       }
     }
-  }, [isSuccess]);
+  }, [isSuccess, data?.data.data]);
 
   if (state.fullName && state.email && state.regId) {
     filled = true;
@@ -74,19 +75,25 @@ const Payment = () => {
         popup: "animate__animated animate__fadeOutUp",
       },
     });
-    toast.error(message, {
-      duration: 3000,
-      position: 'top-center',
-      style: {
-        background: 'red',
-        color: 'white',
-      },
-    })
   };
 
 
   const onSuccess = (reference) => {
     const registration = data?.data?.data;
+
+    if (registration.paymentId) {
+      setPaymentExists(true); // Set the state variable to indicate a payment already exists
+      toast.error("Payment already exists", {
+        duration: 3000,
+        position: 'top-center',
+        style: {
+          background: 'red',
+          color: 'white',
+        },
+      });
+      return; // Return early to prevent creating a new payment
+    }
+
 
     try {
       mutate({
@@ -103,8 +110,11 @@ const Payment = () => {
   };
 
   const onClose = () => {
-    handlePaymentErrorAlert("Payment Already Exists");
+    if (paymentExists) {
+      handlePaymentErrorAlert("Payment already exists"); // Show the error alert if payment exists
+    }
   };
+
   // you can call this function anything
   const PaystackHookExample = () => {
     const initializePayment = usePaystackPayment(config);

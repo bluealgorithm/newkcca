@@ -458,10 +458,10 @@ const RegistrationForm = () => {
                 Financial Background:
               </label>
               <p className="mb-2 text-sm">
-                Please note: We do not require answers to any questions about
+                {`Please note: We do not require answers to any questions about
                 your family's financial background to participate in our core
                 programs. However, answering this question will help us connect
-                you with relevant scholarship opportunities.
+                you with relevant scholarship opportunities.`}
               </p>
               <div className="flex items-center mb-2">
                 <input
