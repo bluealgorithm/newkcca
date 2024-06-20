@@ -7,7 +7,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Nav from "../../../components/Nav";
 import { Toaster } from "sonner";
 import { useCreateApplication } from "../../hooks/useApi";
-import { AdditionalOfferings, ApplicationData, Experience, FinancialBackground, GeneralInformation, Interests } from "../types/types";
+import {
+  AdditionalOfferings,
+  ApplicationData,
+  Experience,
+  FinancialBackground,
+  GeneralInformation,
+  Interests,
+} from "../types/types";
+import { toast } from "sonner";
+import { useRouter } from "next/router";
 
 const formSchema = z.object({
   emailAddress: z.string().email("Enter a Valid Email Address"),
@@ -21,18 +30,18 @@ const formSchema = z.object({
       "Age must be a 2-digit number"
     ),
   hasCodingExperience: z.string().min(1, "Please select an option"),
-  programmingLanguages: z
-    .array(z.string())
-    .optional(),
+  programmingLanguages: z.array(z.string()).optional(),
   otherLanguage: z.string().optional(),
-  completedCodingCourse: z.string().min(1, "Please select an option").optional(),
-  completedPaidCourse: z
+  completedCodingCourse: z
     .string()
+    .min(1, "Please select an option")
     .optional(),
+  completedPaidCourse: z.string().optional(),
   comfortableWithCode: z
     .string()
     .optional()
-    .refine((val) => val !== "", "Please select an option").optional(),
+    .refine((val) => val !== "", "Please select an option")
+    .optional(),
   currentGrade: z.string().min(1, "Current Grade is required"),
   programInterest: z
     .string()
@@ -57,6 +66,7 @@ const formSchema = z.object({
 const resolver = zodResolver(formSchema);
 
 const RegistrationForm = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -121,16 +131,28 @@ const RegistrationForm = () => {
       additionalOfferings: additionalOfferingsData,
     };
 
-    mutate(applicationData);
+    mutate(applicationData, {
+      onSuccess: () => {
+        toast.success("Application Submitted Successfully, Check Your Email!");
+        router.push("/");
+      },
+      onError: (error) => {
+        console.error("Error submitting application:", error);
+        toast.error("An error occurred while submitting the application.");
+      },
+    });
   };
+
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
 
   return (
     <>
       <Nav />
       <Toaster
         toastOptions={{
-          style: { background: "rgb(177, 16, 16)", color: "white" },
+          style: { background: "green", color: "white" },
           className: "my-toast",
+          duration: 4000,
         }}
         position="top-center"
       />
