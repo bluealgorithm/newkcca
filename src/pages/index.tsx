@@ -60,7 +60,7 @@ const Index = () => {
             About the program
           </h3>
           <p className="font-[400] font-montserrat text-[16px] leading-6 text-[#3c3838] mb-[20px]">
-            Kids Code Club Africa (KCCA), an initiative of the Alpha Blue
+            {`Kids Code Club Africa (KCCA), an initiative of the Alpha Blue
             Foundation, is dedicated to empowering African children with digital
             and entrepreneurial skills. With a mission to bridge the digital
             divide, foster economic growth, and prepare the youth for the
@@ -69,7 +69,7 @@ const Index = () => {
             brighter future for African children, positioning them as the
             digital heroes of the continent. Through KCCA, children gain
             valuable skills that not only benefit their personal development but
-            also contribute to Africa's technological advancement and global
+            also contribute to Africa's technological advancement and global`}
             competitiveness.
           </p>
           {/* </section> */}
@@ -78,29 +78,29 @@ const Index = () => {
               Program Description:
             </h3>
             <p className="font-[400] font-montserrat text-[16px] leading-6 text-[#3c3838] mb-[20px]">
-              Kids Code Club Africa (KCCA) is a free, practical digital
+              {`Kids Code Club Africa (KCCA) is a free, practical digital
               capacity-building and entrepreneurship program that operates
               annually. The program kicks off with a Summer Boot Camp,
               (physical) a five-week intensive coding class designed to equip
               children with the necessary digital skills and tools to kickstart
               their careers in technology. Following the boot camp, participants
               engage in a one-year post-boot camp training and mentorship
-              program, which can be conducted either virtually or in person.
+              program, which can be conducted either virtually or in person.`}
             </p>
             <p className="font-[500] font-montserrat text-[16px] leading-6 text-[#3c3838] mb-[20px]">
-              Each KCCA member is assigned a mentor who guides them through
+              {`Each KCCA member is assigned a mentor who guides them through
               their journey in tech. Participants are expected to develop
               personal and group projects during their time in KCCA. These
               projects are then pitched at the Kids in Tech Conference and
               Hackathon, where selected projects stand a chance to win up to
-              1,000,000 Naira.
+              1,000,000 Naira.`}
             </p>
             <p className="font-[300] font-montserrat text-[16px] leading-6 text-[#3c3838] mb-[20px]">
-              The program aims to provide children with practical skills in
+              {`The program aims to provide children with practical skills in
               coding and entrepreneurship, preparing them for success in the
               digital age. By offering mentorship, hands-on training, and
               opportunities to showcase their projects, KCCA empowers African
-              children to become leaders and innovators in the tech industry.
+              children to become leaders and innovators in the tech industry.`}
             </p>
           </div>
         </article>
@@ -183,11 +183,11 @@ const Index = () => {
 
           <ul className="ml-[15px]">
             <li className="font-[300] font-montserrat text-[16px] leading-6 text-[#3c3838] list-disc mb-[10px]">
-              Participants must be between 9 – 17 years’ old
+              {"Participants must be between 9 – 17 years’ old"}
             </li>
             <li className="font-[300] font-montserrat text-[16px] leading-6 text-[#3c3838] list-disc mb-[10px]">
-              Should be computer literate (must be able to know basic computer
-              operations)
+              {`Should be computer literate (must be able to know basic computer
+              operations)`}
             </li>
             <li className="font-[300] font-montserrat text-[16px] leading-6 text-[#3c3838] list-disc mb-[10px]">
               Must have the willingness to learn.
@@ -238,9 +238,9 @@ const Index = () => {
             Free inclusion in the international digital tours programs of KCCA
           </li>
           <li className="font-[300] font-montserrat text-[16px] leading-6 text-[#3c3838] list-disc mb-[10px]">
-            Access to all ALPHA BLUE FOUNDATION and KCCA’s programs and African
+            {`Access to all ALPHA BLUE FOUNDATION and KCCA’s programs and African
             affiliate hubs in partnership with Alpha Blue to participate in
-            competitions and carry out activities/tasks when assigned
+            competitions and carry out activities/tasks when assigned`}
           </li>
           <li className="font-[300] font-montserrat text-[16px] leading-6 text-[#3c3838] list-disc mb-[10px]">
             Opportunities to network and connect with digital tech peers to be
