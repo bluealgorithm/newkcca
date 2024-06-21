@@ -28,15 +28,12 @@ const Spinner = () => (
 
 const SuccessMessage = () => (
   <div className="text-center mt-8">
-    <h2 className="text-2xl font-bold text-green-600 mb-4">
-      Registration Complete!
+    <h2 className="text-2xl font-bold text-primary-600 mb-4">
+      🚀 Awesome! You're Almost There! 🚀
     </h2>
     <p className="text-lg">
-      Thank you for registering. Please check your email for further
-      instructions.
-    </p>
-    <p className="text-lg mt-4">
-      You will be redirected to the home page in 5 seconds...
+      📨 Check your email for details on how to complete your membership fee. 
+      Your tech adventure is just around the corner!
     </p>
   </div>
 );
@@ -126,9 +123,6 @@ const Registration = () => {
           });
           reset();
           setShowForm(false);
-          setTimeout(() => {
-            router.push("/");
-          }, 5000);
         },
         onError: (error) => {
           console.error("Error submitting registration:", error);

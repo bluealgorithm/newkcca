@@ -16,9 +16,6 @@ export function useCreateRegistration() {
   return useMutation({
     mutationFn: async (registrationData: RegistrationData) =>
       await apiService.createRegistration({ ...registrationData }),
-    onSuccess: () => {
-      location.href = "/registration";
-    },
   });
 }
 export function useGetApplication(id: string) {
@@ -75,9 +72,6 @@ export function useCreatePayment() {
   return useMutation({
     mutationFn: async (paymentData: PaymentData) =>
       await apiService.createPayment({ ...paymentData }),
-    onSuccess: () => {
-      location.href = "/registration";
-    },
   });
 }
 
