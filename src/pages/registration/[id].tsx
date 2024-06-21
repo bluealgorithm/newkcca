@@ -85,7 +85,7 @@ const Registration = () => {
       {
         id: applicationId as string,
         address: data.address,
-        age: data.age,
+        age: Number(data.age),
         city: data.city,
         cohort: new Date().getFullYear().toString(),
         country: data.country,
