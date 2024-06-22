@@ -29,11 +29,11 @@ const Spinner = () => (
 const SuccessMessage = () => (
   <div className="text-center mt-6">
     <h2 className="text-2xl font-bold text-primary-600 mb-2">
-      🚀 Awesome! You're Almost There! 🚀
+      {`🚀 Awesome! You're Almost There! 🚀`}
     </h2>
     <p className="text-lg">
-      📨 Check your email for details on how to complete your membership fee. 
-      Your tech adventure is just around the corner!
+    {`  📨 Check your email for details on how to complete your membership fee. 
+      Your tech adventure is just around the corner!` }
     </p>
   </div>
 );
@@ -119,7 +119,7 @@ const Registration = () => {
           toast.success("Registration Submitted Successfully!", {
             style: { background: "green", color: "white" },
             className: "my-toast",
-            duration: 5000,
+            duration: 6000,
           });
           reset();
           setShowForm(false);
@@ -131,7 +131,7 @@ const Registration = () => {
             {
               style: { background: "red", color: "white" },
               className: "my-toast",
-              duration: 5000,
+              duration: 6000,
             }
           );
           reset();
