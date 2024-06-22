@@ -27,8 +27,8 @@ const Spinner = () => (
 );
 
 const SuccessMessage = () => (
-  <div className="text-center mt-8">
-    <h2 className="text-2xl font-bold text-primary-600 mb-4">
+  <div className="text-center mt-6">
+    <h2 className="text-2xl font-bold text-primary-600 mb-2">
       🚀 Awesome! You're Almost There! 🚀
     </h2>
     <p className="text-lg">

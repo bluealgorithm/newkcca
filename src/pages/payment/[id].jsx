@@ -6,16 +6,32 @@ import "animate.css";
 import Animation from "../../../components/Animation";
 import { usePaystackPayment } from "react-paystack";
 import WhatsappButton from "../../../components/WhatsappButton";
-import { useCreatePayment, useGetRegistration } from "../../hooks/useApi";
+import { useCreatePayment, useGetPayment, useGetRegistration } from "../../hooks/useApi";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { Toaster, toast } from "sonner";
 
 const pk = process.env.NEXT_PUBLIC_PAYSTACK_KEY;
+
+const SuccessMessage = () => (
+  <div className="text-center mt-8">
+    <h2 className="text-2xl font-bold text-blue-600 mb-4">
+      🎉 Payment Successful! 🎉
+    </h2>
+    <p className="text-lg">
+      Thank you for completing your KCCA Registration payment for the {new Date().getFullYear().toString()} Cohort.
+    </p>
+    <p className="text-lg mt-4">
+      Please check your email for further instructions and details about the program.
+    </p>
+  </div>
+);
+
 const Payment = () => {
   const router = useRouter();
   const registrationId = router.query.id
   const { data, isLoading, isSuccess } = useGetRegistration(registrationId);
+  const { data: paymentData, isLoading: paymentLoading } = useGetPayment(registrationId);
   const { mutate, isPending, isSuccess: submitted } = useCreatePayment();
   const [paymentExists, setPaymentExists] = useState(false)
 
@@ -77,12 +93,12 @@ const Payment = () => {
     });
   };
 
-
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const onSuccess = (reference) => {
     const registration = data?.data?.data;
 
     if (registration.paymentId) {
-      setPaymentExists(true); // Set the state variable to indicate a payment already exists
+      setPaymentExists(true);
       toast.error("Payment already exists", {
         duration: 3000,
         position: 'top-center',
@@ -91,9 +107,8 @@ const Payment = () => {
           color: 'white',
         },
       });
-      return; // Return early to prevent creating a new payment
+      return;
     }
-
 
     try {
       mutate({
@@ -101,12 +116,33 @@ const Payment = () => {
         cohort: new Date().getFullYear().toString(),
         track: registration.track,
         amount: registration.track === "KCCA Prime" ? (5025000 / 100).toString() : (20000 / 100).toString()
+      }, {
+        onSuccess: () => {
+          setShowSuccessMessage(true);
+          toast.success("Payment Successful!", {
+            duration: 5000,
+            position: 'top-center',
+            style: {
+              background: 'green',
+              color: 'white',
+            },
+          });
+        },
+        onError: (error) => {
+          console.error("Error processing payment:", error);
+          toast.error("Error processing payment. Please try again.", {
+            duration: 5000,
+            position: 'top-center',
+            style: {
+              background: 'red',
+              color: 'white',
+            },
+          });
+        }
       });
-
     } catch (e) {
       console.log(e);
     }
-
   };
 
   const onClose = () => {
@@ -125,7 +161,7 @@ const Payment = () => {
           onClick={() => {
             initializePayment(onSuccess, onClose);
           }}
-          className="h-[56px] font-[600] text-[20px] md:text-[24px] text-black w-full bg-primary hover:bg-primary mt-[36px] rounded-full"
+          className="h-[54px] font-[600] text-[20px] md:text-[24px] text-white w-full bg-primary hover:bg-primary mt-[36px] rounded-md"
         >
           Pay Now
         </button>
@@ -146,42 +182,47 @@ const Payment = () => {
     });
   };
 
-  return isLoading || !registrationId ? "Loading" : (
+  return  (
     <>
       <Toaster />
       <Nav />
-      <Animation>
-        {/* Please do not waste your time complaining or tryint to resolve this. It just works
-          Also we were in a hurry so dont judge, we write better code
-        */}
-        <div className="p-[20px] md:p-[60px] md:px-[80px]">
-          <h2 className="md:max-w-[1164px] font-[600] text-[20px] md:text-[40px]">
-            Hello, {data?.data?.data?.firstName} {data?.data?.data?.lastName}
-          </h2>
-          <p className="mt-2 mb-1 text-lg">
-            Pay 10,000 below to complete your KCCA Registration in the{" "}
-            {new Date().getFullYear().toString()} Cohort
-          </p>
-          <div className="w-[96px] h-[5px] mt-[8px] mb-[32px] bg-primary"></div>
-          <div className="md:flex md:gap-[122px]">
-            <div className="form-inp mt-[24px] md:w-[616px]">
-              <p className="">Track</p>
-              <h3 className="font-[400] text-[20px]  md:text-[24px]">
-                {data?.data?.data?.track}
-              </h3>
-            </div>
-            <div className="form-inp mt-[24px] md:w-[616px]">
-              <p>Email Address</p>
-              <h3 className="font-[400] text-[20px]  md:text-[24px]">
-                {data?.data?.data?.emailAddress}
-              </h3>
-            </div>
+      {isLoading || !registrationId ? "Loading" : (
+        <Animation>
+          <div className="p-[20px] md:p-[60px] md:px-[80px]">
+            {showSuccessMessage ? (
+              <SuccessMessage />
+            ) : (
+              <>
+                <h2 className="md:max-w-[1164px] font-[600] text-[20px] md:text-[40px]">
+                  Hello, {data?.data?.data?.firstName} {data?.data?.data?.lastName}
+                </h2>
+                <p className="mt-2 mb-1 text-lg">
+                  Pay 10,000 below to complete your KCCA Registration in the{" "}
+                  {new Date().getFullYear().toString()} Cohort
+                </p>
+                <div className="w-[96px] h-[5px] mt-[8px] mb-[32px] bg-primary"></div>
+                <div className="md:flex md:gap-[122px]">
+                  <div className="form-inp mt-[24px] md:w-[616px]">
+                    <p className="">Track</p>
+                    <h3 className="font-[400] text-[20px]  md:text-[24px]">
+                      {data?.data?.data?.track}
+                    </h3>
+                  </div>
+                  <div className="form-inp mt-[24px] md:w-[616px]">
+                    <p>Email Address</p>
+                    <h3 className="font-[400] text-[20px]  md:text-[24px]">
+                      {data?.data?.data?.emailAddress}
+                    </h3>
+                  </div>
+                </div>
+                <div className="w-4/5 md:w-[332px] mx-auto md:mx-0">
+                  <PaystackHookExample />
+                </div>
+              </>
+            )}
           </div>
-          <div className="w-4/5 md:w-[332px] mx-auto md:mx-0">
-            <PaystackHookExample />
-          </div>
-        </div>
-      </Animation>
+        </Animation>
+      )}
       <div className="relative">
         <WhatsappButton />
       </div>

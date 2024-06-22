@@ -45,10 +45,10 @@ const Nav = () => {
           <div className="flex gap-2 items-center">
             <img src="/images/icons/mail.png" alt="" />
             <a
-              href="mailto:kidscodeclubafrica@gmail.com"
+              href="mailto:support@kidscodeclubafrica.com"
               className="font-montserrat font-[400] text-[16px] leading-[24px]"
             >
-              kidscodeclubafrica@gmail.com
+              support@kidscodeclubafrica.com
             </a>
           </div>
           <div className="flex items-center gap-2">
