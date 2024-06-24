@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ApplicationData, RegistrationData, PaymentData } from "../pages/types/types";
+import { ApplicationData, PaymentData } from "../pages/types/types";
 
 class API {
   private static baseURL = process.env.NEXT_PUBLIC_BASE_URL;
@@ -20,16 +20,6 @@ class API {
     return apply;
   }
 
-  async createRegistration(registrationData: RegistrationData) {
-    const { id, ...restOfData } = registrationData;
-
-    const register = await axios.post(
-      `${API.baseURL}/registration/${registrationData.id}`,
-      { ...restOfData }
-    );
-    return register;
-  }
-
   async createPayment(paymentData: PaymentData) {
     const { id, ...restOfData } = paymentData;
     const payment = await axios.post(
@@ -47,16 +37,6 @@ class API {
   async getApplications() {
     const applications = await axios.get(`${API.baseURL}/apply`);
     return applications;
-  }
-
-  async getRegistration(id: string) {
-    const registration = await axios.get(`${API.baseURL}/registration/${id}`);
-    return registration;
-  }
-
-  async getRegistrations() {
-    const registrations = await axios.get(`${API.baseURL}/registration`);
-    return registrations;
   }
 
   async getPayment(id: string) {

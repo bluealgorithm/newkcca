@@ -6,7 +6,7 @@ import "animate.css";
 import Animation from "../../../components/Animation";
 import { usePaystackPayment } from "react-paystack";
 import WhatsappButton from "../../../components/WhatsappButton";
-import { useCreatePayment, useGetPayment, useGetRegistration } from "../../hooks/useApi";
+import { useCreatePayment, useGetApplication } from "../../hooks/useApi";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { Toaster, toast } from "sonner";
@@ -19,22 +19,22 @@ const SuccessMessage = () => (
       🎉 Payment Successful! 🎉
     </h2>
     <p className="text-lg">
-      Thank you for completing your KCCA Registration payment for the {new Date().getFullYear().toString()} Cohort.
+      Thank you for completing your KCCA Registration payment for the{" "}
+      {new Date().getFullYear().toString()} Cohort.
     </p>
     <p className="text-lg mt-4">
-      Please check your email for further instructions and details about the program.
+      Please check your email for further instructions and details about the
+      program.
     </p>
   </div>
 );
 
 const Payment = () => {
   const router = useRouter();
-  const registrationId = router.query.id
-  const { data, isLoading, isSuccess } = useGetRegistration(registrationId);
-  const { data: paymentData, isLoading: paymentLoading } = useGetPayment(registrationId);
+  const registrationId = router.query.id;
+  const { data, isLoading, isSuccess } = useGetApplication(registrationId);
   const { mutate, isPending, isSuccess: submitted } = useCreatePayment();
-  const [paymentExists, setPaymentExists] = useState(false)
-
+  const [paymentExists, setPaymentExists] = useState(false);
 
   React.useEffect(() => {
     window.scrollTo(0, 0);
@@ -46,19 +46,23 @@ const Payment = () => {
       fullName: "",
       email: "",
       id: "",
-      amount: ""
+      amount: "",
     },
   ]);
 
   useEffect(() => {
     if (isSuccess) {
       const registration = data?.data?.data; // Access the nested data
-      if (registration) { // Check if registration exists
+      if (registration) {
+        // Check if registration exists
         setState({
           fullName: `${registration.firstName} ${registration.lastName}`,
           email: registration.emailAddress,
           id: registration._id,
-          amount: registration.track === "KCCA Prime" ? (6025000 / 100).toString() : (20000 / 100).toString()
+          amount:
+            registration.track === "KCCA Prime"
+              ? (6025000 / 100).toString()
+              : (20000 / 100).toString(),
         });
       }
     }
@@ -69,7 +73,7 @@ const Payment = () => {
   }
 
   const config = {
-    reference: (new Date()).getTime().toString(),
+    reference: new Date().getTime().toString(),
     metdata: {
       name: state.fullName,
       email: state.email,
@@ -101,45 +105,51 @@ const Payment = () => {
       setPaymentExists(true);
       toast.error("Payment already exists", {
         duration: 3000,
-        position: 'top-center',
+        position: "top-center",
         style: {
-          background: 'red',
-          color: 'white',
+          background: "red",
+          color: "white",
         },
       });
       return;
     }
 
     try {
-      mutate({
-        id: registrationId,
-        cohort: new Date().getFullYear().toString(),
-        track: registration.track,
-        amount: registration.track === "KCCA Prime" ? (5025000 / 100).toString() : (20000 / 100).toString()
-      }, {
-        onSuccess: () => {
-          setShowSuccessMessage(true);
-          toast.success("Payment Successful!", {
-            duration: 5000,
-            position: 'top-center',
-            style: {
-              background: 'green',
-              color: 'white',
-            },
-          });
+      mutate(
+        {
+          id: registrationId,
+          cohort: new Date().getFullYear().toString(),
+          track: registration.track,
+          amount:
+            registration.track === "KCCA Prime"
+              ? (5025000 / 100).toString()
+              : (20000 / 100).toString(),
         },
-        onError: (error) => {
-          console.error("Error processing payment:", error);
-          toast.error("Error processing payment. Please try again.", {
-            duration: 5000,
-            position: 'top-center',
-            style: {
-              background: 'red',
-              color: 'white',
-            },
-          });
+        {
+          onSuccess: () => {
+            setShowSuccessMessage(true);
+            toast.success("Payment Successful!", {
+              duration: 5000,
+              position: "top-center",
+              style: {
+                background: "green",
+                color: "white",
+              },
+            });
+          },
+          onError: (error) => {
+            console.error("Error processing payment:", error);
+            toast.error("Error processing payment. Please try again.", {
+              duration: 5000,
+              position: "top-center",
+              style: {
+                background: "red",
+                color: "white",
+              },
+            });
+          },
         }
-      });
+      );
     } catch (e) {
       console.log(e);
     }
@@ -182,11 +192,13 @@ const Payment = () => {
     });
   };
 
-  return  (
+  return (
     <>
       <Toaster />
       <Nav />
-      {isLoading || !registrationId ? "Loading" : (
+      {isLoading || !registrationId ? (
+        "Loading"
+      ) : (
         <Animation>
           <div className="p-[20px] md:p-[60px] md:px-[80px]">
             {showSuccessMessage ? (
@@ -194,7 +206,8 @@ const Payment = () => {
             ) : (
               <>
                 <h2 className="md:max-w-[1164px] font-[600] text-[20px] md:text-[40px]">
-                  Hello, {data?.data?.data?.firstName} {data?.data?.data?.lastName}
+                  Hello, {data?.data?.data?.firstName}{" "}
+                  {data?.data?.data?.lastName}
                 </h2>
                 <p className="mt-2 mb-1 text-lg">
                   Pay 10,000 below to complete your KCCA Registration in the{" "}
@@ -211,7 +224,8 @@ const Payment = () => {
                   <div className="form-inp mt-[24px] md:w-[616px]">
                     <p>Email Address</p>
                     <h3 className="font-[400] text-[20px]  md:text-[24px]">
-                      {data?.data?.data?.emailAddress}
+                      {data?.data?.data?.generalInformation.firstName}{" "}
+                      {data?.data?.data?.generalInformation.lastName}
                     </h3>
                   </div>
                 </div>
