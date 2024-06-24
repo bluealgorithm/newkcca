@@ -136,7 +136,7 @@ export default function Cohort6() {
             About the program
           </h3>
           <p className="font-[400] font-montserrat text-[16px] leading-6 text-[#3c3838] mb-[20px]">
-            Kids Code Club Africa (KCCA), an initiative of the Alpha Blue
+           {` Kids Code Club Africa (KCCA), an initiative of the Alpha Blue
             Foundation, is dedicated to empowering African children with digital
             and entrepreneurial skills. With a mission to bridge the digital
             divide, foster economic growth, and prepare the youth for the
@@ -146,7 +146,7 @@ export default function Cohort6() {
             digital heroes of the continent. Through KCCA, children gain
             valuable skills that not only benefit their personal development but
             also contribute to Africa's technological advancement and global
-            competitiveness.
+            competitiveness.`}
           </p>
         </article>
         <aside className="flex-1 flex flex-col justify-center h-full relative gap-x-[20px]">
