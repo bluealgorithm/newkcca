@@ -228,7 +228,7 @@ const Payment = () => {
                   {data?.data?.data?.generalInformation.lastName}
                 </h2>
                 <p className="mt-2 mb-1 text-lg">
-                  Pay {registration.track === "KCCA Prime" ? "60,000" : "10,000"} below to complete your KCCA Registration in the{" "}
+                  Pay {data?.data?.data?.track === "KCCA Prime" ? "60,000" : "10,000"} below to complete your KCCA Registration in the{" "}
                   {new Date().getFullYear().toString()} Cohort
                 </p>
                 <div className="w-[96px] h-[5px] mt-[8px] mb-[32px] bg-primary"></div>
