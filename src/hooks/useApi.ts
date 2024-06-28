@@ -11,7 +11,12 @@ export function useCreateApplication() {
       apiService.createApplication(applicationData),
   });
 }
+<<<<<<< HEAD
 function useGetApplication(id: string) {
+=======
+
+export function useGetApplication(id: string) {
+>>>>>>> 364c4ba79255c11c9300dd5dd9831043b565158b
   return useQuery({
     queryKey: ["application", id],
     queryFn: () => apiService.getApplication(id),
@@ -33,31 +38,6 @@ export function useGetApplications() {
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
     refetchOnMount: false,
-  });
-}
-
-export function useGetRegistrations() {
-  return useQuery({
-    queryKey: ["registrations"],
-    queryFn: apiService.getRegistrations,
-    gcTime: Infinity,
-    staleTime: Infinity,
-    refetchOnWindowFocus: false,
-    refetchOnReconnect: false,
-    refetchOnMount: false,
-  });
-}
-
-export function useGetRegistration(id: string) {
-  return useQuery({
-    queryKey: ["registration", id],
-    queryFn: () => apiService.getRegistration(id),
-    gcTime: Infinity,
-    staleTime: Infinity,
-    refetchOnWindowFocus: false,
-    refetchOnReconnect: false,
-    refetchOnMount: false,
-    enabled: !!id
   });
 }
 
