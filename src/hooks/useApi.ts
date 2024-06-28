@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import API from "../services/api.service";
-import { ApplicationData, PaymentData, RegistrationData } from "../pages/types/types";
+import { ApplicationData, PaymentData } from "../pages/types/types";
 
 const apiService = API.getInstance();
 
@@ -11,14 +11,7 @@ export function useCreateApplication() {
       apiService.createApplication(applicationData),
   });
 }
-// Hook for creating a new registration
-export function useCreateRegistration() {
-  return useMutation({
-    mutationFn: async (registrationData: RegistrationData) =>
-      await apiService.createRegistration({ ...registrationData }),
-  });
-}
-export function useGetApplication(id: string) {
+function useGetApplication(id: string) {
   return useQuery({
     queryKey: ["application", id],
     queryFn: () => apiService.getApplication(id),

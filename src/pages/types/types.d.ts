@@ -7,7 +7,7 @@ export interface GeneralInformation {
 export interface Experience {
   hasCodingExperience: boolean;
   programmingLanguages: string[];
-  hasCompletedCodingProgram: boolean;
+hasCompletedCodingProgram: boolean;
   programWasPaid: boolean;
   canWriteOrUnderstandCode: boolean;
 }
@@ -32,6 +32,21 @@ export interface UserData {
 }
 
 export interface ApplicationData {
+  id: string;
+  firstName: string;
+  lastName: string;
+  city: string;
+  address: string;
+  cohort: string;
+  isBoarding: boolean;
+  isInSchool: boolean;
+  school: string;
+  schoolAddress: string;
+  parentName: string;
+  phoneNumber: string;
+  state: string;
+  country: string;
+  gender: string;
   generalInformation: GeneralInformation;
   experience: Experience;
   interests: Interests;
@@ -39,26 +54,6 @@ export interface ApplicationData {
   additionalOfferings: AdditionalOfferings;
 }
 
-
-export interface RegistrationData {
-  id: string;
-  firstName: string;
-  lastName: string;
-  city: string;
-  address: string;
-  cohort: string;
-  age: number;
-  isBoarding: boolean;
-  isInSchool: boolean;
-  school: string;
-  schoolAddress: string;
-  parentName: string;
-  emailAddress: string;
-  phoneNumber: string;
-  state: string;
-  country: string;
-  gender: string;
-}
 
 export interface PaymentData {
   id: string;
